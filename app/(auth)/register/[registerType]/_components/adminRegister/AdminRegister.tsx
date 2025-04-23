@@ -4,9 +4,9 @@ import { authAction } from "@/actions/authAction";
 import React, { useActionState } from "react";
 import { InputFieldsProps } from "@/interfaces/login/login-form-fields.interface";
 import { v4 as uuidv4 } from "uuid";
-import FormField from "./FormField";
+import FormField from "../../../_components/FormField";
 import SubmitButton from "@/components/SubmitButton";
-const Register = () => {
+const AdminRegister = () => {
   const [state, action, isPending] = useActionState<Promise<any>, any>(
     authAction,
     null
@@ -58,4 +58,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default AdminRegister;

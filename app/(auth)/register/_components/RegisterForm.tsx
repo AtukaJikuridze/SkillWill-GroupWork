@@ -32,7 +32,7 @@ const Register = () => {
   ];
 
   return (
-    <form action={action} className="w-full">
+    <form action={action} className="w-full ">
       {inputFields.map(
         ({
           enterTitle,
