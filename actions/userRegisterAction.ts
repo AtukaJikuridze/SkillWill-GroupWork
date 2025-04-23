@@ -11,7 +11,8 @@ export const userRegisterAction = async (
   const lastname = formData.get("lastname")?.toString() || "";
   const phone = formData.get("phone")?.toString() || "";
   const personalId = formData.get("personalId")?.toString() || "";
-  const profilePicture = formData.get("profilePicture")?.toString() || "";
+  const profilePicture = formData.get("profilePicture") as File | null;
+  console.log(profilePicture);
 
   const inputData = {
     email,
@@ -22,7 +23,6 @@ export const userRegisterAction = async (
     personalId,
     profilePicture,
   };
-  console.log(inputData);
 
   const validatedFields = UserRegisterSchema.safeParse(inputData);
 

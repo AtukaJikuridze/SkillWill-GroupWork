@@ -5,5 +5,5 @@ interface IUser {
   lastName: string;
   phoneNumber: string;
   personalId: string;
-  profilePicture: string;
+  profilePicture: string | File;
 }

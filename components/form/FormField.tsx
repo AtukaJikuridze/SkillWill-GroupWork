@@ -10,10 +10,13 @@ const FormField = ({
   placeholder,
   type,
   min,
+  onChange,
+  file,
+  filePicture,
 }: InputFieldsProps) => {
   return (
-    <div className="flex flex-col gap-2 mb-3 ">
-      <label htmlFor="repeat-password" className="text-xl">
+    <div className="flex flex-col gap-2 mb-2 ">
+      <label htmlFor="repeat-password" className="text-lg">
         {enterTitle}
       </label>
       <input
@@ -25,7 +28,18 @@ const FormField = ({
           errors && "border-red-500"
         }`}
         min={min}
+        onChange={onChange}
       />
+      {file && filePicture && (
+        <div className="flex h-20 gap-5">
+          <p>{file.name}</p>
+          <img
+            src={filePicture}
+            alt={file.name}
+            className="w-[100px] object-cover h-[80px]"
+          />
+        </div>
+      )}
       {errors && <ErrorsList name={name} errors={errors} />}
     </div>
   );

@@ -4,6 +4,9 @@ export interface InputFieldsProps {
   enterTitle: string;
   placeholder: string;
   errors: any;
-  defaultValue: string;
+  defaultValue?: string;
   min?: number;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  file?: File | null;
+  filePicture?: string | null;
 }
