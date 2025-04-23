@@ -4,8 +4,8 @@ import React from "react";
 import { InputFieldsProps } from "@/interfaces/login-form-fields.interface";
 import { v4 as uuidv4 } from "uuid";
 import SubmitButton from "@/components/SubmitButton";
-import FormField from "@/app/(auth)/login/_components/FormField";
 import { IForm } from "@/interfaces/my-form.interface";
+import FormField from "./FormField";
 const MyForm = ({ inputFields, myAction, isPending }: IForm) => {
   return (
     <form action={myAction} className="w-full">
@@ -17,6 +17,7 @@ const MyForm = ({ inputFields, myAction, isPending }: IForm) => {
           type,
           errors,
           defaultValue,
+          min,
         }: InputFieldsProps) => (
           <FormField
             defaultValue={defaultValue}
@@ -26,6 +27,7 @@ const MyForm = ({ inputFields, myAction, isPending }: IForm) => {
             placeholder={placeholder}
             type={type}
             key={uuidv4()}
+            min={0}
           />
         )
       )}

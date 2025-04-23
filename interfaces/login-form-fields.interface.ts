@@ -5,4 +5,5 @@ export interface InputFieldsProps {
   placeholder: string;
   errors: any;
   defaultValue: string;
+  min?: number;
 }

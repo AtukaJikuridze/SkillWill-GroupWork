@@ -8,7 +8,7 @@ interface IUseUser {
 
 const useAuth = create<IUseUser>((set) => ({
   user: {
-    role: "admin",
+    role: null,
   },
 
   // login: (userData) => {

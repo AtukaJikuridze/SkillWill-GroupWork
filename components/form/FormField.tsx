@@ -1,6 +1,6 @@
+import ErrorsList from "@/components/form/ErrorsList";
 import { InputFieldsProps } from "@/interfaces/login-form-fields.interface";
 import React from "react";
-import ErrorsList from "./ErrorsList";
 
 const FormField = ({
   defaultValue,
@@ -9,6 +9,7 @@ const FormField = ({
   name,
   placeholder,
   type,
+  min,
 }: InputFieldsProps) => {
   return (
     <div className="flex flex-col gap-2 mb-3 ">
@@ -23,8 +24,9 @@ const FormField = ({
         className={`border px-3 py-2 rounded-md outline-none ${
           errors && "border-red-500"
         }`}
+        min={min}
       />
-      {errors && <ErrorsList errors={errors} />}
+      {errors && <ErrorsList name={name} errors={errors} />}
     </div>
   );
 };
