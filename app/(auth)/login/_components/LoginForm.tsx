@@ -1,14 +1,14 @@
 "use client";
 
-import { authAction } from "@/actions/authAction";
 import React, { useActionState } from "react";
-import { InputFieldsProps } from "@/interfaces/login/login-form-fields.interface";
-import { v4 as uuidv4 } from "uuid";
-import FormField from "./FormField";
-import SubmitButton from "@/components/SubmitButton";
+import { InputFieldsProps } from "@/interfaces/login-form-fields.interface";
+
+import MyForm from "@/components/MyForm";
+import { loginAction } from "@/actions/registerAction";
+
 const Register = () => {
   const [state, action, isPending] = useActionState<Promise<any>, any>(
-    authAction,
+    loginAction,
     null
   );
 
@@ -32,29 +32,7 @@ const Register = () => {
   ];
 
   return (
-    <form action={action} className="w-full">
-      {inputFields.map(
-        ({
-          enterTitle,
-          name,
-          placeholder,
-          type,
-          errors,
-          defaultValue,
-        }: InputFieldsProps) => (
-          <FormField
-            defaultValue={defaultValue}
-            enterTitle={enterTitle}
-            errors={errors}
-            name={name}
-            placeholder={placeholder}
-            type={type}
-            key={uuidv4()}
-          />
-        )
-      )}
-      <SubmitButton>{isPending ? "Submitting..." : "Submit"}</SubmitButton>
-    </form>
+    <MyForm isPending={isPending} inputFields={inputFields} myAction={action} />
   );
 };
 

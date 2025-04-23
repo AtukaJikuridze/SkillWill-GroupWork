@@ -5,7 +5,7 @@ interface ILogin {
   password: string;
 }
 
-export const authAction = async (prevState: ILogin, formData: FormData) => {
+export const loginAction = async (prevState: ILogin, formData: FormData) => {
   const email = formData.get("email")?.toString() || "";
   const password = formData.get("password")?.toString() || "";
 

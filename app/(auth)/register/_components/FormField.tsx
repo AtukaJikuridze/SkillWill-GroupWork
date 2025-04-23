@@ -1,4 +1,4 @@
-import { InputFieldsProps } from "@/interfaces/login/login-form-fields.interface";
+import { InputFieldsProps } from "@/interfaces/login-form-fields.interface";
 import React from "react";
 import ErrorsList from "./ErrorsList";
 
