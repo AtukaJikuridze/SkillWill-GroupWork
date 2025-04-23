@@ -1,12 +1,7 @@
-import React from "react";
-import LoginForm from "./LoginForm";
+import { redirect } from "next/navigation";
 
 const page = () => {
-  return (
-    <div>
-      <LoginForm />
-    </div>
-  );
+  redirect("/login/user");
 };
 
 export default page;
