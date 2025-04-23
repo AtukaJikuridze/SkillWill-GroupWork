@@ -4,11 +4,10 @@ import React, { useActionState } from "react";
 import { InputFieldsProps } from "@/interfaces/login-form-fields.interface";
 
 import MyForm from "@/components/MyForm";
-import { loginAction } from "@/actions/registerAction";
-
-const Register = () => {
+import { registerAction } from "@/actions/loginAction";
+const CourierRegister = () => {
   const [state, action, isPending] = useActionState<Promise<any>, any>(
-    loginAction,
+    registerAction,
     null
   );
 
@@ -29,11 +28,20 @@ const Register = () => {
       errors: state?.errors?.password,
       defaultValue: state?.values.password || "",
     },
+
+    {
+      name: "password",
+      type: "password",
+      enterTitle: "Enter Password:",
+      placeholder: "**********",
+      errors: state?.errors?.password,
+      defaultValue: state?.values.password || "",
+    },
   ];
 
   return (
-    <MyForm isPending={isPending} inputFields={inputFields} myAction={action} />
+    <MyForm inputFields={inputFields} isPending={isPending} myAction={action} />
   );
 };
 
-export default Register;
+export default CourierRegister;

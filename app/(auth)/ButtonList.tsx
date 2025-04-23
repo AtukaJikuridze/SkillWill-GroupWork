@@ -14,9 +14,10 @@ const ButtonsList = () => {
   const pathname = usePathname();
   const params = useParams();
   const correctAuth = pathname.split("/")[1];
-  const correctType: any = params.loginType;
+  const correctType: any = params.loginType || params.registerType;
 
   if (correctType && !allAuthTypes.includes(correctType)) {
+    console.log(true);
     notFound();
   }
 
