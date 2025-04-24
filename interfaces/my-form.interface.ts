@@ -4,4 +4,5 @@ export interface IForm {
   inputFields: InputFieldsProps[];
   myAction: any;
   isPending: boolean;
+  filePicture?: string | null;
 }
