@@ -4,13 +4,9 @@ export const AdminRegisterSchema = z.object({
   firstname: z
     .string()
     .min(2, { message: "First name must be at least 2 characters" })
-    .max(30, { message: "First name must be at most 30 characters" })
+    .max(15, { message: "First name must be at most 15 characters" })
     .trim(),
-  lastname: z
-    .string()
-    .min(2, { message: "Last name must be at least 2 characters" })
-    .max(30, { message: "Last name must be at most 30 characters" })
-    .trim(),
+
   phone: z.string().regex(/^\+?\d{9,15}$/, {
     message:
       "Phone number must be between 9 and 15 digits and can start with +",

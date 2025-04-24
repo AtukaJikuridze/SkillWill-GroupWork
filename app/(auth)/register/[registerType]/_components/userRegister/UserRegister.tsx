@@ -4,13 +4,15 @@ import { InputFieldsProps } from "@/interfaces/login-form-fields.interface";
 import MyForm from "@/components/form/MyForm";
 import { userRegisterAction } from "@/actions/register-actions/userRegisterAction";
 import useAuth from "@/store/useAuth";
+import useApp from "@/store/useApp";
 
 const UserRegister = () => {
   const [state, action, isPending] = useActionState<Promise<any>, any>(
     userRegisterAction,
     null
   );
-  console.log(state);
+  const { setModal } = useApp();
+
   const { selectedProfilePicture, setSelectedProfilePicture } = useAuth();
   const [file, setFile] = useState<File | null>(
     selectedProfilePicture ? selectedProfilePicture : null
@@ -34,7 +36,23 @@ const UserRegister = () => {
     drawPicture(selectedFile);
   };
   const { coordinates, setCoordinates } = useAuth();
-
+  const handleGetLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setCoordinates({
+            lat: position.coords.latitude.toString(),
+            lng: position.coords.longitude.toString(),
+          });
+        },
+        (error) => {
+          console.error("Error getting location: ", error);
+        }
+      );
+    } else {
+      alert("Geolocation is not supported by your browser");
+    }
+  };
   const inputFields: InputFieldsProps[] = [
     {
       name: "firstname",
@@ -48,7 +66,7 @@ const UserRegister = () => {
     {
       name: "lastname",
       type: "text",
-      enterTitle: "Enter Lastname:",
+      enterTitle: "Enter Lastname (optional)",
       placeholder: "Doe",
       errors: state?.errors?.lastname,
       defaultValue: state?.values.lastname || "",
@@ -91,20 +109,13 @@ const UserRegister = () => {
       min: 0,
       autoComplete: "tel",
     },
-    {
-      name: "profilePicture",
-      type: "file",
-      enterTitle: "Choose Profile Picture",
-      errors: state?.errors?.profilePicture,
-      onChange: handleFileChange,
-      file: file as File,
-    },
+
     {
       name: "lng",
       type: "text",
       enterTitle: "Lng",
       value: coordinates.lng || "",
-      placeholder: "Open Map to choose lng",
+      placeholder: "Open map to generate LNG",
       errors: state?.errors?.lng,
       isReadOnly: true,
     },
@@ -113,7 +124,7 @@ const UserRegister = () => {
       type: "text",
       enterTitle: "Lat",
       value: coordinates.lat || "",
-      placeholder: "Open Map to choose lat",
+      placeholder: "Open map to generate LAT",
       errors: state?.errors?.lat,
       isReadOnly: true,
     },
@@ -121,8 +132,16 @@ const UserRegister = () => {
       name: "chooseCoordinates",
       type: "button",
       enterTitle: "Choose Coordinates",
-      value: "Open map to choose coordinates",
-      onClick: () => undefined,
+      value: "Generate My Coordinates",
+      onClick: () => setModal("map"),
+    },
+    {
+      name: "profilePicture",
+      type: "file",
+      enterTitle: "Choose Profile Picture (optional)",
+      errors: state?.errors?.profilePicture,
+      onChange: handleFileChange,
+      file: file as File,
     },
   ];
 
