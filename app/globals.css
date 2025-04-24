@@ -5,6 +5,7 @@
   --color-var-black-transparent: rgba(0, 0, 0, 0.799);
   --color-var-white-transparent: rgba(255, 255, 255, 0.8);
 }
+
 @layer base {
   * {
     padding: 0px;
