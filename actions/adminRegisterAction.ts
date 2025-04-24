@@ -1,5 +1,6 @@
 "use server";
 import { UserRegisterSchema } from "@lib/userRules";
+import { toast } from "react-toastify";
 
 export const userRegisterAction = async (_: undefined, formData: FormData) => {
   const email = formData.get("email")?.toString() || "";
@@ -9,8 +10,6 @@ export const userRegisterAction = async (_: undefined, formData: FormData) => {
   const phone = formData.get("phone")?.toString() || "";
   const personalId = formData.get("personalId")?.toString() || "";
   const profilePicture = formData.get("profilePicture") as File | null;
-  const lat = formData.get("lat") as string | null;
-  const lng = formData.get("lng") as string | null;
 
   const inputData = {
     email,
@@ -20,8 +19,6 @@ export const userRegisterAction = async (_: undefined, formData: FormData) => {
     phone,
     personalId,
     profilePicture,
-    lat,
-    lng,
   };
 
   const validatedFields = UserRegisterSchema.safeParse(inputData);

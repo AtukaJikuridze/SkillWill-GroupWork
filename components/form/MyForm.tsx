@@ -17,12 +17,16 @@ const MyForm = ({ inputFields, myAction, isPending, filePicture }: IForm) => {
           type,
           errors,
           defaultValue,
+          value,
           min,
           onChange,
           file,
+          onClick,
+          isReadOnly,
         }: InputFieldsProps) => (
           <FormField
             defaultValue={defaultValue}
+            value={value}
             enterTitle={enterTitle}
             errors={errors}
             name={name}
@@ -33,6 +37,8 @@ const MyForm = ({ inputFields, myAction, isPending, filePicture }: IForm) => {
             onChange={onChange}
             file={file}
             filePicture={filePicture}
+            onClick={onClick}
+            isReadOnly={isReadOnly}
           />
         )
       )}

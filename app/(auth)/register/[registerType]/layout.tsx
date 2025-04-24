@@ -1,15 +1,18 @@
 "use client";
 import useAuth from "@/store/useAuth";
+import { usePathname } from "next/navigation";
 import { useEffect } from "react";
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   const { setSelectedProfilePicture } = useAuth();
+  const pathname = usePathname();
+
   useEffect(() => {
     setSelectedProfilePicture(null);
-  }, [location.pathname]);
+  }, [pathname]);
+
   return <>{children}</>;
 }

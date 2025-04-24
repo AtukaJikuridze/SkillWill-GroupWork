@@ -13,7 +13,17 @@ const FormField = ({
   onChange,
   file,
   filePicture,
+  onClick,
+  value,
+  autoComplete,
+  isReadOnly,
 }: InputFieldsProps) => {
+  const className = `border px-3 py-2 rounded-md outline-none ${
+    errors && "border-red-500"
+  }
+  ${onClick ? "cursor-pointer transition-all hover:bg-blue-100 " : ""}
+  `;
+
   return (
     <div className="flex flex-col gap-2 mb-2 ">
       <label htmlFor="repeat-password" className="text-lg">
@@ -24,11 +34,13 @@ const FormField = ({
         placeholder={placeholder}
         defaultValue={defaultValue}
         name={name}
-        className={`border px-3 py-2 rounded-md outline-none ${
-          errors && "border-red-500"
-        }`}
+        className={className}
         min={min}
+        onClick={onClick}
         onChange={onChange}
+        value={value}
+        autoComplete={autoComplete}
+        readOnly={isReadOnly}
       />
       {file && filePicture && (
         <div className="flex h-20 gap-5">

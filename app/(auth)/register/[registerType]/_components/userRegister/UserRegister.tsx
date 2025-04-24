@@ -32,7 +32,8 @@ const UserRegister = () => {
     setSelectedProfilePicture(selectedFile);
     drawPicture(selectedFile);
   };
-  console.log(file);
+  const { coordinates, setCoordinates } = useAuth();
+
   const inputFields: InputFieldsProps[] = [
     {
       name: "firstname",
@@ -41,6 +42,7 @@ const UserRegister = () => {
       placeholder: "John",
       errors: state?.errors?.firstname,
       defaultValue: state?.values.firstname || "",
+      autoComplete: "given-name",
     },
     {
       name: "lastname",
@@ -49,6 +51,7 @@ const UserRegister = () => {
       placeholder: "Doe",
       errors: state?.errors?.lastname,
       defaultValue: state?.values.lastname || "",
+      autoComplete: "family-name",
     },
     {
       name: "email",
@@ -57,6 +60,7 @@ const UserRegister = () => {
       placeholder: "johndoe@gmail.com",
       errors: state?.errors?.email,
       defaultValue: state?.values.email || "",
+      autoComplete: "email",
     },
     {
       name: "password",
@@ -65,6 +69,7 @@ const UserRegister = () => {
       placeholder: "**********",
       errors: state?.errors?.password,
       defaultValue: state?.values.password || "",
+      autoComplete: "new-password",
     },
     {
       name: "personalId",
@@ -83,16 +88,41 @@ const UserRegister = () => {
       errors: state?.errors?.phone,
       defaultValue: state?.values.phone || "",
       min: 0,
+      autoComplete: "tel",
     },
     {
       name: "profilePicture",
       type: "file",
       enterTitle: "Choose Profile Picture",
-      placeholder: "Upload image...",
       errors: state?.errors?.profilePicture,
       onChange: handleFileChange,
       file: file as File,
-      min: 0,
+    },
+    {
+      name: "lng",
+      type: "text",
+      enterTitle: "Lng",
+      value: coordinates.lng || "",
+      placeholder: "Open Map to choose lng",
+      errors: state?.errors?.lng,
+      isReadOnly: true,
+    },
+    {
+      name: "lat",
+      type: "text",
+      enterTitle: "Lat",
+      value: coordinates.lat || "",
+      placeholder: "Open Map to choose lat",
+      errors: state?.errors?.lat,
+      isReadOnly: true,
+    },
+    {
+      name: "chooseCoordinates",
+      type: "button",
+      enterTitle: "Choose Coordinates",
+      errors: state?.errors?.lat,
+      value: "Open map to choose coordinates",
+      onClick: () => undefined,
     },
   ];
 

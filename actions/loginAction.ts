@@ -1,10 +1,6 @@
 "use server";
-interface ILogin {
-  email: string;
-  password: string;
-}
 
-export const loginAction = async (prevState: ILogin, formData: FormData) => {
+export const loginAction = async (_: undefined, formData: FormData) => {
   const email = formData.get("email")?.toString() || "";
   const password = formData.get("password")?.toString() || "";
 
