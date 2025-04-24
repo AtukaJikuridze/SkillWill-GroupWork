@@ -47,7 +47,7 @@ const AdminRegister = () => {
     {
       name: "lastname",
       type: "text",
-      enterTitle: "Enter Lastname:",
+      enterTitle: "Enter Lastname (optional)",
       placeholder: "Doe",
       errors: state?.errors?.lastname,
       defaultValue: state?.values.lastname || "",
@@ -93,7 +93,7 @@ const AdminRegister = () => {
     {
       name: "profilePicture",
       type: "file",
-      enterTitle: "Choose Profile Picture",
+      enterTitle: "Choose Profile Picture (optional)",
       errors: state?.errors?.profilePicture,
       onChange: handleFileChange,
       file: file as File,

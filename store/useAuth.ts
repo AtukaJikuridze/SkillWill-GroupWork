@@ -1,8 +1,6 @@
+import { Coordinates } from "@/interfaces/coordinates.interface";
 import { create } from "zustand";
-interface Coordinates {
-  lat: string | null;
-  lng: string | null;
-}
+
 interface IUseUser {
   user: {
     role: "admin" | "courier" | "user" | null;
