@@ -1,5 +1,5 @@
-import BaseForm, { Field } from "@/app/_components/form/BaseForm";
-import { ICourier } from "@/app/_interfaces/courier.interface";
+import BaseForm, { Field } from "@/components/form/BaseForm";
+import { ICourier } from "@/interfaces/courier.interface";
 
 interface IForm {
   formData: Record<string, string | number | File>;

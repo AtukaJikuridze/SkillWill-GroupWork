@@ -1,5 +1,3 @@
-import { IBaseResponse } from "./response.interface";
-
 export type IWeekDays =
   | "monday"
   | "tuesday"
@@ -19,7 +17,7 @@ export interface IWorkingDays {
   [key: string]: IWorkingDay[];
 }
 
-export interface IBaseCourier {
+export interface ICourier {
   _uuid: string;
   firstName: string;
   lastName: string;
@@ -33,5 +31,3 @@ export interface IBaseCourier {
   workingDays: IWorkingDays;
   totalRequests: string[];
 }
-
-export interface ICourier extends IBaseResponse, IBaseCourier {}

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import TimeSelect from "./TimeSelect";
-import { IWeekDays, IWorkingDay } from "@/app/_interfaces/courier.interface";
+import { IWeekDays, IWorkingDay } from "@/interfaces/courier.interface";
 import { generateTimeSlots } from "../_utils/generateTimeSlots";
 import { weekDaysOrder } from "../_utils/weekDayOrder";
 
