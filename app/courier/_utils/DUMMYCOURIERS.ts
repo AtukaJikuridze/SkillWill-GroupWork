@@ -1,4 +1,4 @@
-import { ICourier } from "@/app/_interfaces/courier.interface";
+import { ICourier } from "@/interfaces/courier.interface";
 
 const DUMMYCOURIERS: ICourier[] = [
   {

@@ -1,9 +1,9 @@
 "use client";
-import { ICourier } from "@/app/_interfaces/courier.interface";
 import { useState } from "react";
 import CourierForm from "../_components/Form";
 import { checkMinimumWorkingDays } from "../_utils/checkMinimumWorkingDays";
 import DUMMYCOURIERS from "../_utils/DUMMYCOURIERS";
+import { ICourier } from "@/interfaces/courier.interface";
 
 export default function EditPage() {
   const courier = DUMMYCOURIERS[0];

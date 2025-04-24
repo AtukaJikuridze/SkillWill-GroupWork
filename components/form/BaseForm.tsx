@@ -4,12 +4,9 @@ import PasswordInput from "./PasswordInput";
 import TextInput from "./TextInput";
 import ImageInput from "./ImageInput";
 import SelectInput from "./SelectInput";
-import {
-  loadingNotification,
-  onResponseReturned,
-} from "@/app/_utils/notifications";
+import { loadingNotification, onResponseReturned } from "@/utils/notifications";
 import WorkingDaysInput from "./WorkingDaysInput";
-import { ICourier } from "@/app/_interfaces/courier.interface";
+import { ICourier } from "@/interfaces/courier.interface";
 
 const CLOUDINARY_UPLOAD_URL = process.env
   .NEXT_PUBLIC_CLOUDINARY_UPLOAD_URL as string;
@@ -126,10 +123,7 @@ export default function BaseForm({
   };
 
   return (
-    <form
-      className={`mx-auto p-2 ${className}`}
-      onSubmit={handleSubmit}
-    >
+    <form className={`mx-auto p-2 ${className}`} onSubmit={handleSubmit}>
       <div className="flex mx-auto gap-4">
         <div className="w-[600px]">
           {fields.map(({ name, label, type, options }) => (

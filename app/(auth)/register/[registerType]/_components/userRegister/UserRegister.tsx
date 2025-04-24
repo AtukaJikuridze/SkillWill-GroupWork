@@ -1,10 +1,10 @@
 "use client";
 import React, { useActionState, useState } from "react";
 import { InputFieldsProps } from "@/interfaces/login-form-fields.interface";
-import MyForm from "@/components/form/MyForm";
 import { userRegisterAction } from "@/actions/register-actions/userRegisterAction";
 import useAuth from "@/store/useAuth";
 import useApp from "@/store/useApp";
+import MyForm from "@/components/register-form/MyForm";
 
 const UserRegister = () => {
   const [state, action, isPending] = useActionState<Promise<any>, any>(

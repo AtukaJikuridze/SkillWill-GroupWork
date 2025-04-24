@@ -3,8 +3,8 @@
 import React, { useActionState } from "react";
 import { InputFieldsProps } from "@/interfaces/login-form-fields.interface";
 
-import MyForm from "@/components/form/MyForm";
 import { loginAction } from "@/actions/loginAction";
+import MyForm from "@/components/register-form/MyForm";
 
 const Register = () => {
   const [state, action, isPending] = useActionState<Promise<any>, any>(

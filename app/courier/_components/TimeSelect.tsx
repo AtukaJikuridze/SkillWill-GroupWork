@@ -1,4 +1,4 @@
-import { IWeekDays } from "@/app/_interfaces/courier.interface";
+import { IWeekDays } from "@/interfaces/courier.interface";
 import { generateTimeSlots } from "../_utils/generateTimeSlots";
 import timeStringToDecimal from "../_utils/timeStringToDecimal";
 

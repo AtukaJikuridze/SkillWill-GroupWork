@@ -3,9 +3,9 @@
 import React, { useActionState, useState } from "react";
 import { InputFieldsProps } from "@/interfaces/login-form-fields.interface";
 
-import MyForm from "@/components/form/MyForm";
 import useAuth from "@/store/useAuth";
 import { courierRegisterAction } from "@/actions/register-actions/courierRegisterAction";
+import MyForm from "@/components/register-form/MyForm";
 const CourierRegister = () => {
   const [state, action, isPending] = useActionState<Promise<any>, any>(
     courierRegisterAction,

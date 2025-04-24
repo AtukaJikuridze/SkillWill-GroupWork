@@ -1,4 +1,4 @@
-import { ICourier, IWeekDays } from "@/app/_interfaces/courier.interface";
+import { ICourier, IWeekDays } from "@/interfaces/courier.interface";
 import WeekdaySchedule from "@/app/courier/_components/WeeklySchedule";
 import { checkMinimumWorkingDays } from "@/app/courier/_utils/checkMinimumWorkingDays";
 import React from "react";
