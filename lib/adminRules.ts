@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const UserRegisterSchema = z.object({
+export const AdminRegisterSchema = z.object({
   firstname: z
     .string()
     .min(2, { message: "First name must be at least 2 characters" })
@@ -43,6 +43,4 @@ export const UserRegisterSchema = z.object({
       message: "Password must contain at least one special character",
     })
     .trim(),
-  lat: z.string().min(1, { message: "Cannot be empty" }).trim(),
-  lng: z.string().min(1, { message: "Cannot be empty" }).trim(),
 });

@@ -2,7 +2,7 @@
 import React, { useActionState, useState } from "react";
 import { InputFieldsProps } from "@/interfaces/login-form-fields.interface";
 import MyForm from "@/components/form/MyForm";
-import { userRegisterAction } from "@/actions/userRegisterAction";
+import { userRegisterAction } from "@/actions/register-actions/userRegisterAction";
 import useAuth from "@/store/useAuth";
 
 const UserRegister = () => {
@@ -10,6 +10,7 @@ const UserRegister = () => {
     userRegisterAction,
     null
   );
+  console.log(state);
   const { selectedProfilePicture, setSelectedProfilePicture } = useAuth();
   const [file, setFile] = useState<File | null>(
     selectedProfilePicture ? selectedProfilePicture : null
@@ -120,7 +121,6 @@ const UserRegister = () => {
       name: "chooseCoordinates",
       type: "button",
       enterTitle: "Choose Coordinates",
-      errors: state?.errors?.lat,
       value: "Open map to choose coordinates",
       onClick: () => undefined,
     },
@@ -134,6 +134,16 @@ const UserRegister = () => {
         myAction={action}
         filePicture={picture}
       />
+      {state?.success === true && (
+        <h1 className="bg-green-300 text-white my-2 text-center p-1">
+          Account Created Succesfully
+        </h1>
+      )}
+      {state?.success === false && (
+        <h1 className="bg-red-600 text-white my-2 text-center p-1">
+          Something went wrong
+        </h1>
+      )}
     </>
   );
 };

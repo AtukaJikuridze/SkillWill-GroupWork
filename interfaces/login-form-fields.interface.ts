@@ -3,7 +3,7 @@ export interface InputFieldsProps {
   type: string;
   enterTitle: string;
   placeholder?: string;
-  errors: any;
+  errors?: Record<string, string[]>;
   defaultValue?: string;
   value?: string;
   min?: number;
