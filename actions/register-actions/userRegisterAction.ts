@@ -1,4 +1,6 @@
 "use server";
+import { IUserTypes } from "@/interfaces/user.interface";
+import { addUser } from "@/services/users";
 import { UserRegisterSchema } from "@lib/userRules";
 
 export const userRegisterAction = async (_: undefined, formData: FormData) => {
@@ -7,24 +9,26 @@ export const userRegisterAction = async (_: undefined, formData: FormData) => {
     const password = formData.get("password")?.toString() || "";
     const firstname = formData.get("firstname")?.toString() || "";
     const lastname = formData.get("lastname")?.toString() || "";
-    const phone = formData.get("phone")?.toString() || "";
-    const personalId = formData.get("personalId")?.toString() || "";
+    const phone_number = Number(formData.get("phone") || null);
+    const personal_id = Number(formData.get("personalId") || null);
     const profilePicture = formData.get("profilePicture") as File | null;
-    const lat = formData.get("lat") as string | null;
-    const lng = formData.get("lng") as string | null;
+    const lat = formData.get("lat") as string;
+    const lng = formData.get("lng") as string;
 
-    const inputData = {
+    const inputData: IUserTypes = {
       email,
       password,
       firstname,
       lastname,
-      phone,
-      personalId,
-      profilePicture,
-      lat,
-      lng,
+      phone_number,
+      personal_id,
+      // profilePicture,
+      coordinates: {
+        lat,
+        lng,
+      },
     };
-
+    console.log(inputData);
     const validatedFields = UserRegisterSchema.safeParse(inputData);
 
     if (!validatedFields.success) {
@@ -35,9 +39,8 @@ export const userRegisterAction = async (_: undefined, formData: FormData) => {
       };
     }
 
-    // Continue processing (e.g., saving to DB, sending confirmation email, etc.)
-    console.log(true);
-
+    addUser(inputData);
+    console.log("after");
     return {
       success: true,
       errors: {},

@@ -1,3 +1,4 @@
+"use client"
 import { Coordinates } from "@/interfaces/coordinates.interface";
 import useApp from "@/store/useApp";
 import React, { MouseEventHandler } from "react";

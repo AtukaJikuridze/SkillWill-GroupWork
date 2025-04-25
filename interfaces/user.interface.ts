@@ -21,5 +21,19 @@ export interface IBaseUser {
   requestedCouriers: ICourier[];
 }
 
+// axla es typebi gvaq 
+export interface IUserTypes {
+  email: string;
+  password: string;
+  firstname: string;
+  lastname: string;
+  phone_number: number;
+  personal_id: number;
+  coordinates: {
+    lat: string | null;
+    lng: string | null;
+  };
+}
+
 export interface IUser extends IBaseResponse, IBaseUser {}
 export type IRandomUser = IUser | IAdmin | ICourier;
