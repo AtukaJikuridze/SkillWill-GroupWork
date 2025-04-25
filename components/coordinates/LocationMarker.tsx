@@ -1,11 +1,14 @@
-import { Coordinates } from "@/interfaces/coordinates.interface";
-import useAuth from "@/store/useAuth";
+"use client";
 import React from "react";
 import { Marker, useMapEvents } from "react-leaflet";
 import L from "leaflet";
+import useAuth from "@/store/useAuth";
+import { Coordinates } from "@/interfaces/coordinates.interface";
+
 interface LocationMarkerProps {
   position: Coordinates | null;
   setPosition: (coords: Coordinates) => void;
+  setCoordinates: (coords: Coordinates) => void;
 }
 
 const markerIcon = new L.Icon({
@@ -18,26 +21,20 @@ const markerIcon = new L.Icon({
 const LocationMarker: React.FC<LocationMarkerProps> = ({
   position,
   setPosition,
+  setCoordinates,
 }) => {
-  const { setCoordinates } = useAuth();
-
   useMapEvents({
     click(e: L.LeafletMouseEvent) {
-      const target = e.originalEvent.target as HTMLElement;
-
-      if (target.closest("button")) return;
-
       const newPosition: Coordinates = {
         lat: e.latlng.lat.toString(),
         lng: e.latlng.lng.toString(),
       };
-
+      setCoordinates(newPosition)
       setPosition(newPosition);
-      setCoordinates(newPosition);
     },
   });
 
-  return position?.lat && position?.lng ? (
+  return position ? (
     <Marker
       position={[Number(position.lat), Number(position.lng)]}
       icon={markerIcon}
