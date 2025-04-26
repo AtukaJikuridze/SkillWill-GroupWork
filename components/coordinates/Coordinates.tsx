@@ -1,3 +1,4 @@
+"use client";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
@@ -6,6 +7,7 @@ import LocationMarker from "./LocationMarker";
 import type { Coordinates } from "@/interfaces/coordinates.interface";
 import LocateButton from "./LocateButton";
 import useApp from "@/store/useApp";
+import useAuth from "@/store/useAuth";
 
 const ResizeMap = ({ active }: { active: boolean }) => {
   const map = useMap();
@@ -14,7 +16,7 @@ const ResizeMap = ({ active }: { active: boolean }) => {
     if (active) {
       setTimeout(() => {
         map.invalidateSize();
-      }, 300); // wait for CSS transition to finish
+      }, 300);
     }
   }, [active]);
 
@@ -22,8 +24,10 @@ const ResizeMap = ({ active }: { active: boolean }) => {
 };
 
 const Coordinates: React.FC = () => {
-  const { modal } = useApp();
   const [position, setPosition] = useState<Coordinates | null>(null);
+  const setCoordinates = useAuth((state) => state.setCoordinates);
+  const modal = useApp((state) => state.modal);
+
   const center: LatLngExpression = [41.7151, 44.8271];
   const isActive = modal === "map";
 
@@ -43,7 +47,11 @@ const Coordinates: React.FC = () => {
         className="w-[80%] h-[70%] rounded-md shadow-lg"
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-        <LocationMarker position={position} setPosition={setPosition} />
+        <LocationMarker
+          position={position}
+          setPosition={setPosition}
+          setCoordinates={setCoordinates}
+        />
         <LocateButton onLocate={setPosition} />
         <ResizeMap active={isActive} />
       </MapContainer>

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { IBaseCourier } from "@/interfaces/courier.interface";
+=======
+import { ICourier } from "@/interfaces/courier.interface";
+>>>>>>> 6b1430efc1f0da104b0088e99e47d71cb10caf3f
 
 const DUMMYCOURIERS: IBaseCourier[] = [
   {

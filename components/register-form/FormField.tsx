@@ -1,4 +1,4 @@
-import ErrorsList from "@/components/form/ErrorsList";
+import ErrorsList from "@/app/(auth)/register/_components/ErrorsList";
 import { InputFieldsProps } from "@/interfaces/login-form-fields.interface";
 import React from "react";
 
@@ -52,7 +52,7 @@ const FormField = ({
           />
         </div>
       )}
-      {errors && <ErrorsList name={name} errors={errors} />}
+      {errors && <ErrorsList errors={errors} />}
     </div>
   );
 };

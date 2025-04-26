@@ -4,7 +4,11 @@ import CourierForm from "./_components/Form";
 import { checkMinimumWorkingDays } from "../_utils/checkMinimumWorkingDays";
 import { IBaseCourier, ICourier } from "@/interfaces/courier.interface";
 import DUMMYCOURIERS from "../_utils/DUMMYCOURIERS";
+<<<<<<< HEAD
 import { updateCourier } from "@/services/courier";
+=======
+import { ICourier } from "@/interfaces/courier.interface";
+>>>>>>> 6b1430efc1f0da104b0088e99e47d71cb10caf3f
 
 export default function EditPage() {
   const courier = DUMMYCOURIERS[0];

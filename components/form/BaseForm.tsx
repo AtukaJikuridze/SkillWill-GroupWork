@@ -4,10 +4,14 @@ import PasswordInput from "./PasswordInput";
 import TextInput from "./TextInput";
 import ImageInput from "./ImageInput";
 import SelectInput from "./SelectInput";
+<<<<<<< HEAD
 import {
   loadingNotification,
   onResponseReturned,
 } from "@/utils/notifications";
+=======
+import { loadingNotification, onResponseReturned } from "@/utils/notifications";
+>>>>>>> 6b1430efc1f0da104b0088e99e47d71cb10caf3f
 import WorkingDaysInput from "./WorkingDaysInput";
 import { ICourier } from "@/interfaces/courier.interface";
 

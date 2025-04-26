@@ -1,19 +1,37 @@
 "use client";
-import React, { useActionState, useState } from "react";
+import React, { useActionState, useState, useRef, useEffect } from "react";
 import { InputFieldsProps } from "@/interfaces/login-form-fields.interface";
-import MyForm from "@/components/form/MyForm";
 import { userRegisterAction } from "@/actions/register-actions/userRegisterAction";
 import useAuth from "@/store/useAuth";
 import useApp from "@/store/useApp";
+import MyForm from "@/components/register-form/MyForm";
 
 const UserRegister = () => {
   const [state, action, isPending] = useActionState<Promise<any>, any>(
     userRegisterAction,
     null
   );
-  const { setModal } = useApp();
+  const stateRef = useRef<any>(null);
+  const coordinates = useAuth((state) => state.coordinates);
 
-  const { selectedProfilePicture, setSelectedProfilePicture } = useAuth();
+  useEffect(() => {
+    if (state !== null) {
+      stateRef.current = state;
+      console.log(state);
+    }
+  }, [state, coordinates]);
+
+  const currentState = state || stateRef.current;
+
+  const setModal = useApp((state) => state.setModal);
+
+  const selectedProfilePicture = useAuth(
+    (state) => state.selectedProfilePicture
+  );
+  const setSelectedProfilePicture = useAuth(
+    (state) => state.setSelectedProfilePicture
+  );
+
   const [file, setFile] = useState<File | null>(
     selectedProfilePicture ? selectedProfilePicture : null
   );
@@ -35,32 +53,15 @@ const UserRegister = () => {
     setSelectedProfilePicture(selectedFile);
     drawPicture(selectedFile);
   };
-  const { coordinates, setCoordinates } = useAuth();
-  const handleGetLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setCoordinates({
-            lat: position.coords.latitude.toString(),
-            lng: position.coords.longitude.toString(),
-          });
-        },
-        (error) => {
-          console.error("Error getting location: ", error);
-        }
-      );
-    } else {
-      alert("Geolocation is not supported by your browser");
-    }
-  };
+
   const inputFields: InputFieldsProps[] = [
     {
       name: "firstname",
       type: "text",
       enterTitle: "Enter Firstname:",
       placeholder: "John",
-      errors: state?.errors?.firstname,
-      defaultValue: state?.values.firstname || "",
+      errors: currentState?.errors?.firstname,
+      defaultValue: currentState?.values?.firstname || "",
       autoComplete: "given-name",
     },
     {
@@ -68,8 +69,8 @@ const UserRegister = () => {
       type: "text",
       enterTitle: "Enter Lastname (optional)",
       placeholder: "Doe",
-      errors: state?.errors?.lastname,
-      defaultValue: state?.values.lastname || "",
+      errors: currentState?.errors?.lastname,
+      defaultValue: currentState?.values?.lastname || "",
       autoComplete: "family-name",
     },
     {
@@ -77,8 +78,8 @@ const UserRegister = () => {
       type: "email",
       enterTitle: "Enter Email:",
       placeholder: "johndoe@gmail.com",
-      errors: state?.errors?.email,
-      defaultValue: state?.values.email || "",
+      errors: currentState?.errors?.email,
+      defaultValue: currentState?.values?.email || "",
       autoComplete: "email",
     },
     {
@@ -86,8 +87,8 @@ const UserRegister = () => {
       type: "password",
       enterTitle: "Enter Password:",
       placeholder: "**********",
-      errors: state?.errors?.password,
-      defaultValue: state?.values.password || "",
+      errors: currentState?.errors?.password,
+      defaultValue: currentState?.values?.password || "",
       autoComplete: "new-password",
     },
     {
@@ -95,8 +96,8 @@ const UserRegister = () => {
       type: "number",
       enterTitle: "Enter Personal Id:",
       placeholder: "00000000000",
-      errors: state?.errors?.personalId,
-      defaultValue: state?.values.personalId || "",
+      errors: currentState?.errors?.personalId,
+      defaultValue: currentState?.values?.personalId || "",
       min: 0,
     },
     {
@@ -104,19 +105,18 @@ const UserRegister = () => {
       type: "number",
       enterTitle: "Enter Phone Number:",
       placeholder: "995 000 000 000",
-      errors: state?.errors?.phone,
-      defaultValue: state?.values.phone || "",
+      errors: currentState?.errors?.phone,
+      defaultValue: currentState?.values?.phone || "",
       min: 0,
       autoComplete: "tel",
     },
-
     {
       name: "lng",
       type: "text",
       enterTitle: "Lng",
       value: coordinates.lng || "",
       placeholder: "Open map to generate LNG",
-      errors: state?.errors?.lng,
+      errors: currentState?.errors?.lng,
       isReadOnly: true,
     },
     {
@@ -125,7 +125,7 @@ const UserRegister = () => {
       enterTitle: "Lat",
       value: coordinates.lat || "",
       placeholder: "Open map to generate LAT",
-      errors: state?.errors?.lat,
+      errors: currentState?.errors?.lat,
       isReadOnly: true,
     },
     {
@@ -139,7 +139,7 @@ const UserRegister = () => {
       name: "profilePicture",
       type: "file",
       enterTitle: "Choose Profile Picture (optional)",
-      errors: state?.errors?.profilePicture,
+      errors: currentState?.errors?.profilePicture,
       onChange: handleFileChange,
       file: file as File,
     },
@@ -153,12 +153,12 @@ const UserRegister = () => {
         myAction={action}
         filePicture={picture}
       />
-      {state?.success === true && (
+      {currentState?.success === true && (
         <h1 className="bg-green-300 text-white my-2 text-center p-1">
-          Account Created Succesfully
+          Account Created Successfully
         </h1>
       )}
-      {state?.success === false && (
+      {currentState?.success === false && (
         <h1 className="bg-red-600 text-white my-2 text-center p-1">
           Something went wrong
         </h1>

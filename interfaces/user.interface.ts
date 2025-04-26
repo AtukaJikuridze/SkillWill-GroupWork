@@ -8,6 +8,10 @@ export interface IAdress {
 }
 
 export interface IBaseUser {
+<<<<<<< HEAD
+=======
+  _uuid: string;
+>>>>>>> 6b1430efc1f0da104b0088e99e47d71cb10caf3f
   firstName: string;
   lastName: string;
   pid: number;
@@ -20,7 +24,11 @@ export interface IBaseUser {
   requestedCouriers: ICourier[];
 }
 
+<<<<<<< HEAD
 // axla es typebi gvaq
+=======
+// axla es typebi gvaq 
+>>>>>>> 6b1430efc1f0da104b0088e99e47d71cb10caf3f
 export interface IUserTypes {
   email: string;
   password: string;
