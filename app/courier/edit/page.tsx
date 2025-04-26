@@ -1,13 +1,14 @@
 "use client";
-import { ICourier } from "@/app/_interfaces/courier.interface";
 import { useState } from "react";
-import CourierForm from "../_components/Form";
+import CourierForm from "./_components/Form";
 import { checkMinimumWorkingDays } from "../_utils/checkMinimumWorkingDays";
+import { IBaseCourier, ICourier } from "@/interfaces/courier.interface";
 import DUMMYCOURIERS from "../_utils/DUMMYCOURIERS";
+import { updateCourier } from "@/services/courier";
 
 export default function EditPage() {
   const courier = DUMMYCOURIERS[0];
-  const [courierData, setCourierData] = useState<ICourier>({ ...courier });
+  const [courierData, setCourierData] = useState<IBaseCourier>({ ...courier });
 
   const handleFormSubmit = (
     updatedData: Record<string, string | number | File>
@@ -17,9 +18,7 @@ export default function EditPage() {
       ...updatedData,
       workingDays: courierData.workingDays,
     };
-    console.log(updatedCourier);
-    // submit courier to API
-    // onSubmit(updatedCourier);
+    updateCourier(updatedCourier as ICourier);
   };
 
   const handleWorkingDaysUpdate = (updatedCourier: ICourier) =>
@@ -36,7 +35,7 @@ export default function EditPage() {
             }
             handleFormSubmit={handleFormSubmit}
             canSubmit={!checkMinimumWorkingDays(courierData.workingDays)}
-            courier={courierData}
+            courier={courierData as ICourier}
             handleWorkingDaysUpdate={handleWorkingDaysUpdate}
           />
         </div>

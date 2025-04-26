@@ -1,8 +1,7 @@
-import { ICourier } from "@/interfaces/courier.interface";
+import { IBaseCourier } from "@/interfaces/courier.interface";
 
-const DUMMYCOURIERS: ICourier[] = [
+const DUMMYCOURIERS: IBaseCourier[] = [
   {
-    _uuid: "uuid-001",
     firstName: "Alice",
     lastName: "Smith",
     pid: 1001,
@@ -19,12 +18,11 @@ const DUMMYCOURIERS: ICourier[] = [
       thursday: [{ startHours: "08:00", endHours: "16:00", booked: false }],
       friday: [{ startHours: "08:00", endHours: "16:00", booked: false }],
       saturday: [{ startHours: "08:00", endHours: "16:00", booked: false }],
-      sunday: [],
+      sunday: [{ startHours: "08:00", endHours: "16:00", booked: false }],
     },
     totalRequests: ["req-001", "req-002"],
   },
   {
-    _uuid: "uuid-002",
     firstName: "Bob",
     lastName: "Johnson",
     pid: 1002,
@@ -46,7 +44,6 @@ const DUMMYCOURIERS: ICourier[] = [
     totalRequests: ["req-003"],
   },
   {
-    _uuid: "uuid-003",
     firstName: "Charlie",
     lastName: "Lee",
     pid: 1003,
@@ -68,7 +65,6 @@ const DUMMYCOURIERS: ICourier[] = [
     totalRequests: [],
   },
   {
-    _uuid: "uuid-004",
     firstName: "Dana",
     lastName: "Martinez",
     pid: 1004,
@@ -90,7 +86,6 @@ const DUMMYCOURIERS: ICourier[] = [
     totalRequests: ["req-004", "req-005", "req-006"],
   },
   {
-    _uuid: "uuid-005",
     firstName: "Ethan",
     lastName: "Nguyen",
     pid: 1005,
@@ -112,7 +107,6 @@ const DUMMYCOURIERS: ICourier[] = [
     totalRequests: [],
   },
   {
-    _uuid: "uuid-006",
     firstName: "Fiona",
     lastName: "Garcia",
     pid: 1006,
@@ -134,7 +128,6 @@ const DUMMYCOURIERS: ICourier[] = [
     totalRequests: ["req-007"],
   },
   {
-    _uuid: "uuid-007",
     firstName: "George",
     lastName: "Brown",
     pid: 1007,
@@ -156,7 +149,6 @@ const DUMMYCOURIERS: ICourier[] = [
     totalRequests: ["req-008", "req-009"],
   },
   {
-    _uuid: "uuid-008",
     firstName: "Hannah",
     lastName: "Lopez",
     pid: 1008,
@@ -178,7 +170,6 @@ const DUMMYCOURIERS: ICourier[] = [
     totalRequests: ["req-010"],
   },
   {
-    _uuid: "uuid-009",
     firstName: "Isaac",
     lastName: "Davis",
     pid: 1009,
@@ -200,7 +191,6 @@ const DUMMYCOURIERS: ICourier[] = [
     totalRequests: [],
   },
   {
-    _uuid: "uuid-010",
     firstName: "Jasmine",
     lastName: "White",
     pid: 1010,

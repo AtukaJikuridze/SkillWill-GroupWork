@@ -1,17 +1,12 @@
+import { IWorkingDays } from "@/interfaces/courier.interface";
 import { weekDaysOrder } from "../_utils/weekDayOrder";
 import WorkingDay from "./WorkingDay";
 
-interface IWorkingDay {
-  startHours: string;
-  endHours: string;
-  booked: boolean;
-}
-
-interface IWorkingDays {
-  workingDays: { [key: string]: IWorkingDay[] };
-}
-
-export default function WorkingDays({ workingDays }: IWorkingDays) {
+export default function WorkingDays({
+  workingDays,
+}: {
+  workingDays: IWorkingDays;
+}) {
   const sortedWorkingDays = weekDaysOrder.map((day) => {
     return {
       day,

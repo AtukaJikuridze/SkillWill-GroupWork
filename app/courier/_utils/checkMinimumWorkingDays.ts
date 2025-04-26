@@ -1,6 +1,5 @@
 import { IWorkingDays } from "@/interfaces/courier.interface";
 
-
 export const checkMinimumWorkingDays = (workingDays: IWorkingDays) => {
   const daysWithWorkingHours = Object.values(workingDays).filter(
     (day) => day.length > 0
