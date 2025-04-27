@@ -21,18 +21,31 @@ export interface IBaseUser {
   requestedCouriers: ICourier[];
 }
 
-// axla es typebi gvaq 
+// axla es typebi gvaq
 export interface IUserTypes {
   email: string;
   password: string;
   firstname: string;
   lastname: string;
-  phone_number: number;
-  personal_id: number;
+  phone_number: string | number;
+  profile_picture: File | null;
+  personal_id: string | number;
   coordinates: {
     lat: string | null;
     lng: string | null;
   };
+}
+export interface IUserRulesType {
+  email: string;
+  password: string;
+  firstname: string;
+  lastname: string;
+  phone_number: string;
+  profile_picture: File | null;
+  personal_id: string;
+
+  lat: string | null;
+  lng: string | null;
 }
 
 export interface IUser extends IBaseResponse, IBaseUser {}

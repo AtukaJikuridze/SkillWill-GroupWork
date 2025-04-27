@@ -1,15 +1,15 @@
 import { z } from "zod";
 
 export const UserRegisterSchema = z.object({
-  // firstname: z
-  //   .string()
-  //   .min(2, { message: "First name must be at least 2 characters" })
-  //   .max(15, { message: "First name must be at most 15 characters" })
-  //   .trim(),
-  // phone: z.string().regex(/^\+?\d{9,15}$/, {
+  firstname: z
+    .string()
+    .min(2, { message: "First name must be at least 2 characters" })
+    .max(15, { message: "First name must be at most 15 characters" })
+    .trim(),
+  // phone_number: z.string().regex(/^\+?\d{9,15}$/, {
   //   message: "Phone number must be between 9 and 15 digits ",
   // }),
-  // personalId: z
+  // personal_id: z
   //   .string()
   //   .length(12, { message: "Personal ID must be exactly 12 digits" })
   //   .regex(/^\d+$/, { message: "Personal ID must contain only digits" }),
@@ -30,6 +30,7 @@ export const UserRegisterSchema = z.object({
   //     message: "Password must contain at least one lowercase letter",
   //   })
   //   .regex(/[A-Z]/, {
+
   //     message: "Password must contain at least one uppercase letter",
   //   })
   //   .regex(/[0-9]/, { message: "Password must contain at least one number" })

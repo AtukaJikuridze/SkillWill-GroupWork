@@ -1,10 +1,11 @@
 "use client";
-import React, { useActionState, useState, useRef, useEffect } from "react";
+import React, { useState, useEffect, useRef, useActionState } from "react";
 import { InputFieldsProps } from "@/interfaces/login-form-fields.interface";
 import { userRegisterAction } from "@/actions/register-actions/userRegisterAction";
 import useAuth from "@/store/useAuth";
 import useApp from "@/store/useApp";
 import MyForm from "@/components/register-form/MyForm";
+import UserRegisterForm from "./UserRegisterForm";
 
 const UserRegister = () => {
   const [state, action, isPending] = useActionState<Promise<any>, any>(
@@ -12,36 +13,48 @@ const UserRegister = () => {
     null
   );
   const stateRef = useRef<any>(null);
+
   const coordinates = useAuth((state) => state.coordinates);
-
-  useEffect(() => {
-    if (state !== null) {
-      stateRef.current = state;
-      console.log(state);
-    }
-  }, [state, coordinates]);
-
-  const currentState = state || stateRef.current;
-
-  const setModal = useApp((state) => state.setModal);
-
   const selectedProfilePicture = useAuth(
     (state) => state.selectedProfilePicture
   );
   const setSelectedProfilePicture = useAuth(
     (state) => state.setSelectedProfilePicture
   );
+  const setModal = useApp((state) => state.setModal);
+  const currentState = state || stateRef.current;
 
-  const [file, setFile] = useState<File | null>(
-    selectedProfilePicture ? selectedProfilePicture : null
-  );
-  const [picture, setPicture] = useState(null);
+  const [formData, setFormData] = useState({
+    firstname: currentState?.values?.firstname || "",
+    lastname: currentState?.values?.lastname || "",
+    email: currentState?.values?.email || "",
+    password: currentState?.values?.password || "",
+    personal_id: currentState?.values?.personalId || "",
+    phone_number: currentState?.values?.phone_number || "",
+    lng: coordinates.lng,
+    lat: coordinates.lat,
+    profilePicture: selectedProfilePicture || null,
+  });
+
+  const [picture, setPicture] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (state !== null) {
+      stateRef.current = state;
+    }
+  }, [state]);
+
+  useEffect(() => {
+    if (selectedProfilePicture) {
+      drawPicture(selectedProfilePicture);
+    }
+  }, [selectedProfilePicture]);
 
   const drawPicture = (selectedFile: File | null) => {
     if (selectedFile) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setPicture(reader.result as any);
+        setPicture(reader.result as string);
       };
       reader.readAsDataURL(selectedFile);
     }
@@ -49,9 +62,20 @@ const UserRegister = () => {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0] || null;
-    setFile(selectedFile);
+    setFormData((prevData) => ({
+      ...prevData,
+      profilePicture: selectedFile,
+    }));
     setSelectedProfilePicture(selectedFile);
     drawPicture(selectedFile);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const inputFields: InputFieldsProps[] = [
@@ -61,8 +85,9 @@ const UserRegister = () => {
       enterTitle: "Enter Firstname:",
       placeholder: "John",
       errors: currentState?.errors?.firstname,
-      defaultValue: currentState?.values?.firstname || "",
+      value: formData.firstname,
       autoComplete: "given-name",
+      onChange: handleChange,
     },
     {
       name: "lastname",
@@ -70,8 +95,9 @@ const UserRegister = () => {
       enterTitle: "Enter Lastname (optional)",
       placeholder: "Doe",
       errors: currentState?.errors?.lastname,
-      defaultValue: currentState?.values?.lastname || "",
+      value: formData.lastname,
       autoComplete: "family-name",
+      onChange: handleChange,
     },
     {
       name: "email",
@@ -79,8 +105,9 @@ const UserRegister = () => {
       enterTitle: "Enter Email:",
       placeholder: "johndoe@gmail.com",
       errors: currentState?.errors?.email,
-      defaultValue: currentState?.values?.email || "",
+      value: formData.email,
       autoComplete: "email",
+      onChange: handleChange,
     },
     {
       name: "password",
@@ -88,33 +115,36 @@ const UserRegister = () => {
       enterTitle: "Enter Password:",
       placeholder: "**********",
       errors: currentState?.errors?.password,
-      defaultValue: currentState?.values?.password || "",
+      value: formData.password,
       autoComplete: "new-password",
+      onChange: handleChange,
     },
     {
-      name: "personalId",
+      name: "personal_id",
       type: "number",
       enterTitle: "Enter Personal Id:",
       placeholder: "00000000000",
-      errors: currentState?.errors?.personalId,
-      defaultValue: currentState?.values?.personalId || "",
+      errors: currentState?.errors?.personal_id,
+      value: formData.personal_id,
       min: 0,
+      onChange: handleChange,
     },
     {
-      name: "phone",
+      name: "phone_number",
       type: "number",
       enterTitle: "Enter Phone Number:",
       placeholder: "995 000 000 000",
-      errors: currentState?.errors?.phone,
-      defaultValue: currentState?.values?.phone || "",
+      errors: currentState?.errors?.phone_number,
+      value: formData.phone_number,
       min: 0,
       autoComplete: "tel",
+      onChange: handleChange,
     },
     {
       name: "lng",
       type: "text",
       enterTitle: "Lng",
-      value: coordinates.lng || "",
+      value: formData.lng || coordinates.lng || "",
       placeholder: "Open map to generate LNG",
       errors: currentState?.errors?.lng,
       isReadOnly: true,
@@ -123,7 +153,7 @@ const UserRegister = () => {
       name: "lat",
       type: "text",
       enterTitle: "Lat",
-      value: coordinates.lat || "",
+      value: formData.lat || coordinates.lat || "",
       placeholder: "Open map to generate LAT",
       errors: currentState?.errors?.lat,
       isReadOnly: true,
@@ -136,23 +166,19 @@ const UserRegister = () => {
       onClick: () => setModal("map"),
     },
     {
-      name: "profilePicture",
+      name: "profile_picture",
       type: "file",
       enterTitle: "Choose Profile Picture (optional)",
-      errors: currentState?.errors?.profilePicture,
+      errors: currentState?.errors?.profile_picture,
       onChange: handleFileChange,
-      file: file as File,
+      file: selectedProfilePicture,
+      filePicture: picture,
     },
   ];
 
   return (
     <>
-      <MyForm
-        inputFields={inputFields}
-        isPending={isPending}
-        myAction={action}
-        filePicture={picture}
-      />
+      <UserRegisterForm action={action} inputFields={inputFields} />
       {currentState?.success === true && (
         <h1 className="bg-green-300 text-white my-2 text-center p-1">
           Account Created Successfully

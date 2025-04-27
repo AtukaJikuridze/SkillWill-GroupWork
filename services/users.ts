@@ -17,7 +17,7 @@ export const addUser = async (formData: IUserTypes) => {
   const { data, error } = await supabase.from("users").insert([formData]);
 
   if (error) {
-    console.error("Error adding user:", error.message);
+    console.error("Error adding user:", error);
     return null;
   }
   console.log(data);

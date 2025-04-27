@@ -1,5 +1,6 @@
 "use server";
-import { IUserTypes } from "@/interfaces/user.interface";
+
+import { IUserRulesType, IUserTypes } from "@/interfaces/user.interface";
 import { addUser } from "@/services/users";
 import { UserRegisterSchema } from "@lib/userRules";
 
@@ -9,11 +10,11 @@ export const userRegisterAction = async (_: undefined, formData: FormData) => {
     const password = formData.get("password")?.toString() || "";
     const firstname = formData.get("firstname")?.toString() || "";
     const lastname = formData.get("lastname")?.toString() || "";
-    const phone_number = Number(formData.get("phone") || null);
-    const personal_id = Number(formData.get("personalId") || null);
-    const profilePicture = formData.get("profilePicture") as File | null;
-    const lat = formData.get("lat") as string;
-    const lng = formData.get("lng") as string;
+    const phone_number = formData.get("phone_number")?.toString() || "";
+    const personal_id = formData.get("personal_id")?.toString() || "";
+    const profile_picture = formData.get("profile_picture") as File | null;
+    const lat = formData.get("lat")?.toString() || "";
+    const lng = formData.get("lng")?.toString() || "";
 
     const inputData: IUserTypes = {
       email,
@@ -22,14 +23,25 @@ export const userRegisterAction = async (_: undefined, formData: FormData) => {
       lastname,
       phone_number,
       personal_id,
-      // profilePicture,
+      profile_picture,
       coordinates: {
         lat,
         lng,
       },
     };
-    console.log(inputData);
-    const validatedFields = UserRegisterSchema.safeParse(inputData);
+    const inputDataForRules: IUserRulesType = {
+      email,
+      password,
+      firstname,
+      lastname,
+      phone_number,
+      personal_id,
+      profile_picture,
+      lat,
+      lng,
+    };
+
+    const validatedFields = UserRegisterSchema.safeParse(inputDataForRules);
 
     if (!validatedFields.success) {
       return {
@@ -39,8 +51,11 @@ export const userRegisterAction = async (_: undefined, formData: FormData) => {
       };
     }
 
-    addUser(inputData);
-    console.log("after");
+    await addUser({
+      ...inputData,
+      phone_number: parseInt(phone_number),
+      personal_id: parseInt(personal_id),
+    });
     return {
       success: true,
       errors: {},
