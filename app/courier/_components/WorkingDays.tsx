@@ -1,17 +1,12 @@
+import { IWorkingDays } from "@/interfaces/user.interface";
 import { weekDaysOrder } from "../_utils/weekDayOrder";
 import WorkingDay from "./WorkingDay";
 
-interface IWorkingDay {
-  startHours: string;
-  endHours: string;
-  booked: boolean;
-}
-
-interface IWorkingDays {
-  workingDays: { [key: string]: IWorkingDay[] };
-}
-
-export default function WorkingDays({ workingDays }: IWorkingDays) {
+export default function WorkingDays({
+  workingDays,
+}: {
+  workingDays: IWorkingDays;
+}) {
   const sortedWorkingDays = weekDaysOrder.map((day) => {
     return {
       day,
@@ -20,7 +15,7 @@ export default function WorkingDays({ workingDays }: IWorkingDays) {
   });
 
   return (
-    <div className="w-full border border-gray-400 rounded-sm ">
+    <div className="w-full border border-black">
       <div className="max-h-[300px] overflow-y-scroll scrollbar-none touch-auto">
         <table className="min-w-full" aria-label="working days table">
           <thead>

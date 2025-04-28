@@ -1,27 +1,19 @@
-import { IAdmin } from "./admin.interface copy";
-import { ICourier } from "./courier.interface";
-import { IBaseResponse } from "./response.interface";
-
-export interface IAdress {
-  lng: string;
-  lat: string;
+interface IResponse {
+  _uuid: number;
+  _created_at: string;
 }
 
-export interface IBaseUser {
-  _uuid: string;
+interface IAllUsers {
   firstName: string;
   lastName: string;
-  pid: number;
-  phoneNumber: string;
   email: string;
   password: string;
-  profileImage: string;
+  pid: number;
+  phoneNumber: string;
+  profileImage?: string;
   role: "admin" | "user" | "courier";
-  address: IAdress;
-  requestedCouriers: ICourier[];
 }
 
-// axla es typebi gvaq 
 export interface IUserTypes {
   email: string;
   password: string;
@@ -35,5 +27,43 @@ export interface IUserTypes {
   };
 }
 
-export interface IUser extends IBaseResponse, IBaseUser {}
-export type IRandomUser = IUser | IAdmin | ICourier;
+// User
+export interface IBaseUser extends IAllUsers {
+  coordinates: {
+    lat: string | null;
+    lng: string | null;
+  };
+  requestedCouriers: ICourier[];
+}
+export interface IUser extends IResponse, IBaseUser {}
+
+// Courier
+export type IWeekDays =
+  | "monday"
+  | "tuesday"
+  | "wednesday"
+  | "thursday"
+  | "friday"
+  | "saturday"
+  | "sunday";
+
+export interface IWorkingDay {
+  startHours: string;
+  endHours: string;
+  booked: boolean;
+}
+
+export interface IWorkingDays {
+  [key: string]: IWorkingDay[];
+}
+
+export interface IBaseCourier extends IAllUsers {
+  vehicle: string;
+  workingDays: IWorkingDays;
+  totalRequests: string[];
+}
+export interface ICourier extends IBaseCourier, IResponse {}
+
+// Admin
+export interface IBaseAdmin extends IAllUsers {}
+export interface IAdmin extends IBaseAdmin, IResponse {}
