@@ -1,8 +1,16 @@
+"use server";
+import { ICourier } from "@/interfaces/user.interface";
 import { supabase } from "@/lib/supabase";
-import { ICourier } from "@/interfaces/courier.interface";
+import { unstable_cacheTag as cacheTag, revalidateTag } from "next/cache";
 
 export const getCouriers = async (): Promise<ICourier[]> => {
-  const { data, error } = await supabase.from("couriers").select("*");
+  "use cache";
+  cacheTag("couriers");
+
+  const { data, error } = await supabase
+    .from("users")
+    .select("*")
+    .eq("role", "courier");
 
   if (error) {
     console.error("Error fetching courier:", error.message);
@@ -13,8 +21,11 @@ export const getCouriers = async (): Promise<ICourier[]> => {
 };
 
 export const getCourier = async (id: string): Promise<ICourier> => {
+  "use cache";
+  cacheTag("courier-by-id");
+
   const { data, error } = await supabase
-    .from("couriers")
+    .from("users")
     .select("*")
     .eq("_uuid", id)
     .single();
@@ -28,7 +39,7 @@ export const getCourier = async (id: string): Promise<ICourier> => {
 
 export const createCourier = async (courier: ICourier) => {
   const { data, error } = await supabase
-    .from("couriers")
+    .from("users")
     .insert([courier])
     .select();
 
@@ -37,12 +48,14 @@ export const createCourier = async (courier: ICourier) => {
     return [];
   }
 
+  revalidateTag("couriers");
+
   return data;
 };
 
 export const updateCourier = async (courier: ICourier) => {
   const { data, error } = await supabase
-    .from("couriers")
+    .from("users")
     .update(courier)
     .eq("_uuid", courier._uuid)
     .select();
@@ -52,12 +65,15 @@ export const updateCourier = async (courier: ICourier) => {
     return [];
   }
 
+  revalidateTag("couriers");
+  revalidateTag("courier-by-id");
+
   return data;
 };
 
 export const deleteCourier = async (uuid: string) => {
   const { data, error } = await supabase
-    .from("couriers")
+    .from("users")
     .delete()
     .eq("_uuid", uuid);
 
@@ -66,12 +82,15 @@ export const deleteCourier = async (uuid: string) => {
     return [];
   }
 
+  revalidateTag("couriers");
+  revalidateTag("courier-by-id");
+
   return data;
 };
 
 export const searchCouriers = async (search: string): Promise<ICourier[]> => {
   const { data, error } = await supabase
-    .from("couriers")
+    .from("users")
     .select("*")
     .or(
       `firstName.ilike.%${search}%,lastName.ilike.%${search}%,email.ilike.%${search},vehicle.ilike.%${search}%`

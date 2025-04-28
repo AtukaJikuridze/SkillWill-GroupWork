@@ -1,10 +1,9 @@
 import React from "react";
-import { ICourier } from "@/interfaces/courier.interface";
 import Info from "./Info";
 import WorkingDays from "./WorkingDays";
+import { ICourier } from "@/interfaces/user.interface";
 
 export default function Details({ courier }: { courier: ICourier }) {
-  console.log(courier.workingDays);
   return (
     <>
       <Info courier={courier} />

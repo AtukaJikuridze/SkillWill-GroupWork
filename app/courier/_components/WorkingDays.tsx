@@ -1,4 +1,4 @@
-import { IWorkingDays } from "@/interfaces/courier.interface";
+import { IWorkingDays } from "@/interfaces/user.interface";
 import { weekDaysOrder } from "../_utils/weekDayOrder";
 import WorkingDay from "./WorkingDay";
 
@@ -15,7 +15,7 @@ export default function WorkingDays({
   });
 
   return (
-    <div className="w-full border border-gray-400 rounded-sm ">
+    <div className="w-full border border-black">
       <div className="max-h-[300px] overflow-y-scroll scrollbar-none touch-auto">
         <table className="min-w-full" aria-label="working days table">
           <thead>

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import TimeSelect from "./TimeSelect";
 import { generateTimeSlots } from "../_utils/generateTimeSlots";
 import { weekDaysOrder } from "../_utils/weekDayOrder";
-import { IWeekDays, IWorkingDay } from "@/interfaces/courier.interface";
+import { IWeekDays, IWorkingDay } from "@/interfaces/user.interface";
 
 const hours = generateTimeSlots(8, 24);
 

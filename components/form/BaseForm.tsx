@@ -4,22 +4,9 @@ import PasswordInput from "./PasswordInput";
 import TextInput from "./TextInput";
 import ImageInput from "./ImageInput";
 import SelectInput from "./SelectInput";
-<<<<<<< HEAD
-import {
-  loadingNotification,
-  onResponseReturned,
-} from "@/utils/notifications";
-=======
-import { loadingNotification, onResponseReturned } from "@/utils/notifications";
->>>>>>> 6b1430efc1f0da104b0088e99e47d71cb10caf3f
 import WorkingDaysInput from "./WorkingDaysInput";
-import { ICourier } from "@/interfaces/courier.interface";
-
-const CLOUDINARY_UPLOAD_URL = process.env
-  .NEXT_PUBLIC_CLOUDINARY_UPLOAD_URL as string;
-const CLOUDINARY_UPLOAD_PRESET = process.env
-  .NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET as string;
-const CLOUDINARY_API_KEY = process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY as string;
+import { loadingNotification, onResponseReturned } from "@/utils/notifications";
+import { ICourier } from "@/interfaces/user.interface";
 
 export interface Field {
   name: string;
@@ -96,27 +83,6 @@ export default function BaseForm({
 
     try {
       const finalData = { ...formData };
-
-      if (formData.profileImage instanceof File) {
-        const uploadData = new FormData();
-        uploadData.append("file", formData.profileImage);
-        uploadData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
-        uploadData.append("api_key", CLOUDINARY_API_KEY);
-
-        console.log("Cloudinary Upload URL:", CLOUDINARY_UPLOAD_URL);
-        console.log("Upload Preset:", CLOUDINARY_UPLOAD_PRESET);
-
-        const response = await axios.post(CLOUDINARY_UPLOAD_URL, uploadData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
-
-        console.log("Cloudinary Response:", response.data);
-        if (response.data.secure_url) {
-          finalData.profileImage = response.data.secure_url;
-        } else {
-          throw new Error("Cloudinary did not return a valid image URL.");
-        }
-      }
       onSubmit(finalData);
       setFormData({});
       setErrors({});

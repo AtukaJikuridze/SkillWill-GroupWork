@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Avatar from "./Avatar";
+import { ICourier } from "@/interfaces/user.interface";
 
 interface IInfoDisplay {
   label: string;
@@ -15,20 +16,7 @@ const InfoDisplay = ({ label, value }: IInfoDisplay) => {
   );
 };
 
-interface IInfo {
-  courier: {
-    email: string;
-    firstName: string;
-    lastName: string;
-    phoneNumber: string;
-    pid: number;
-    vehicle: string;
-    totalRequests: string[];
-    profileImage: string;
-  };
-}
-
-export default function Info({ courier }: IInfo) {
+export default function Info({ courier }: { courier: ICourier }) {
   return (
     <div className="flex flex-col w-full">
       <div className="flex justify-between items-center">

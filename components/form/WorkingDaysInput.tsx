@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-=======
-import { ICourier, IWeekDays } from "@/interfaces/courier.interface";
->>>>>>> 6b1430efc1f0da104b0088e99e47d71cb10caf3f
 import WeekdaySchedule from "@/app/courier/_components/WeeklySchedule";
 import { checkMinimumWorkingDays } from "@/app/courier/_utils/checkMinimumWorkingDays";
-import { ICourier, IWeekDays } from "@/interfaces/courier.interface";
+import { ICourier, IWeekDays } from "@/interfaces/user.interface";
 import React from "react";
 
 interface IWorkingDaysInput {
