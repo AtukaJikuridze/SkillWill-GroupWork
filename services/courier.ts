@@ -1,5 +1,5 @@
 "use server";
-import { ICourier } from "@/interfaces/user.interface";
+import { IBaseCourier, ICourier } from "@/interfaces/user.interface";
 import { supabase } from "@/lib/supabase";
 import { unstable_cacheTag as cacheTag, revalidateTag } from "next/cache";
 
@@ -37,7 +37,7 @@ export const getCourier = async (id: string): Promise<ICourier> => {
   return data;
 };
 
-export const createCourier = async (courier: ICourier) => {
+export const createCourier = async (courier: IBaseCourier) => {
   const { data, error } = await supabase
     .from("users")
     .insert([courier])
@@ -61,7 +61,7 @@ export const updateCourier = async (courier: ICourier) => {
     .select();
 
   if (error) {
-    console.error("Error Creating Courier:", error.message);
+    console.error("Error Updating Courier:", error.message);
     return [];
   }
 
@@ -71,7 +71,7 @@ export const updateCourier = async (courier: ICourier) => {
   return data;
 };
 
-export const deleteCourier = async (uuid: string) => {
+export const deleteCourier = async (uuid: number) => {
   const { data, error } = await supabase
     .from("users")
     .delete()
@@ -94,7 +94,8 @@ export const searchCouriers = async (search: string): Promise<ICourier[]> => {
     .select("*")
     .or(
       `firstName.ilike.%${search}%,lastName.ilike.%${search}%,email.ilike.%${search},vehicle.ilike.%${search}%`
-    );
+    )
+    .eq("role", "courier");
 
   if (error) {
     console.error("Error Searching Courier:", error.message);

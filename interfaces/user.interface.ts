@@ -67,3 +67,6 @@ export interface ICourier extends IBaseCourier, IResponse {}
 // Admin
 export interface IBaseAdmin extends IAllUsers {}
 export interface IAdmin extends IBaseAdmin, IResponse {}
+
+// All
+export type IRandomUser = IUser | ICourier | IAdmin;

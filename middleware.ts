@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 
 export async function middleware(req: NextRequest) {
   const cookieStore = await cookies();
-  // cookieStore.set("uuid", "2");
+  // cookieStore.set("uuid", "4");
 
   if (!cookieStore.has("uuid"))
     return NextResponse.redirect(new URL("/login", req.url));
