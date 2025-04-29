@@ -6,6 +6,7 @@ import { cookies } from "next/headers";
 export async function middleware(req: NextRequest) {
   const cookieStore = await cookies();
   // cookieStore.set("uuid", "4");
+  cookieStore.set("uuid", "13");
 
   if (!cookieStore.has("uuid"))
     return NextResponse.redirect(new URL("/login", req.url));
@@ -14,5 +15,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/courier/:path*"],
+  matcher: ["/courier/:path*", "/adim/:path*", "/user/:path*"],
 };

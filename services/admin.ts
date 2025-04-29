@@ -17,7 +17,7 @@ export const getRandomUsers = async (): Promise<IRandomUser[]> => {
   return data;
 };
 
-export const getRandomUser = async (id: string): Promise<IRandomUser> => {
+export const getUser = async (id: string): Promise<IRandomUser> => {
   "use cache";
   cacheTag("random-user-by-id");
 
@@ -28,7 +28,7 @@ export const getRandomUser = async (id: string): Promise<IRandomUser> => {
     .single();
 
   if (error) {
-    console.error("Error fetching couriers:", error.message);
+    console.error("Error fetching user:", error.message);
   }
 
   return data;
@@ -42,7 +42,7 @@ export const updateRandomUser = async (user: IRandomUser) => {
     .select();
 
   if (error) {
-    console.error("Error Updating User:", error.message);
+    console.error("Error updating user:", error.message);
     return [];
   }
 
@@ -80,7 +80,7 @@ export const searchRandomUsers = async (
     );
 
   if (error) {
-    console.error("Error Searching User:", error.message);
+    console.error("Error searching user:", error.message);
     return [];
   }
 

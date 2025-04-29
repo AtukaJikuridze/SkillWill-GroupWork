@@ -1,7 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { ICourier, IUser } from "@/interfaces/user.interface";
-import { deleteRandomUser } from "@/services/admin";
 
 interface IUserList {
   users: IUser[];
@@ -69,12 +68,6 @@ const UserList = ({ users, couriers }: IUserList) => {
                     className="px-3 py-1 border border-purple-500 text-purple-500 rounded hover:bg-purple-50"
                   >
                     View More
-                  </button>
-                  <button
-                    onClick={() => deleteRandomUser(user._uuid)}
-                    className="px-3 py-1 border border-red-500 text-red-500 rounded hover:bg-red-50"
-                  >
-                    Delete
                   </button>
                 </td>
               </tr>
