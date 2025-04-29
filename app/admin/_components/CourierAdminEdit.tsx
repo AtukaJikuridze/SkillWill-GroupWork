@@ -40,7 +40,9 @@ const CourierAdminEdit = ({ courier }: ICourierAdminEdit) => {
             .endHours
         : "23:30";
     const newStartHours = addThirtySeconds(lastWorkingDay);
-    const newEndHours = addThirtySeconds(newStartHours);
+    let newEndHours = addThirtySeconds(newStartHours);
+    if (newStartHours === "00:00") newEndHours = "08:30";
+
     const updatedWorkingDays = {
       ...courierData.workingDays,
       [day]: [
@@ -52,6 +54,7 @@ const CourierAdminEdit = ({ courier }: ICourierAdminEdit) => {
         },
       ],
     };
+
     setCourierData({ ...courierData, workingDays: updatedWorkingDays });
   };
 

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import PasswordInput from "./PasswordInput";
 import TextInput from "./TextInput";
 import ImageInput from "./ImageInput";

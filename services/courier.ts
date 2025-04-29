@@ -49,6 +49,7 @@ export const createCourier = async (courier: IBaseCourier) => {
   }
 
   revalidateTag("couriers");
+  revalidateTag("random-users");
 
   return data;
 };

@@ -1,4 +1,3 @@
-
 import { IWeekDays } from "@/interfaces/user.interface";
 import { generateTimeSlots } from "../_utils/generateTimeSlots";
 import timeStringToDecimal from "../_utils/timeStringToDecimal";

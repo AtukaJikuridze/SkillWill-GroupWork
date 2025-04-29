@@ -1,6 +1,6 @@
 "use client";
 import GeoLocationInput from "@/components/GeoLocationInput";
-import { IUser } from "@/interfaces/user.interface";
+import { IAdress, IUser } from "@/interfaces/user.interface";
 import { useState } from "react";
 import UserForm from "./UserForm";
 import { useRouter } from "next/navigation";
@@ -8,11 +8,6 @@ import { useRouter } from "next/navigation";
 interface IUserEdit {
   user: IUser;
   onSubmit: (updatedUser: IUser) => void;
-}
-
-export interface IAdress {
-  lng: string;
-  lat: string;
 }
 
 const UserEdit = ({ user, onSubmit }: IUserEdit) => {

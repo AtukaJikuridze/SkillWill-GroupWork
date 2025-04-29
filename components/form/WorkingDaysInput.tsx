@@ -55,7 +55,8 @@ export default function WorkingDaysInput({
         ? courier.workingDays[day][courier.workingDays[day].length - 1].endHours
         : "23:30";
     const newStartHours = addThirtySeconds(lastWorkingDay);
-    const newEndHours = addThirtySeconds(newStartHours);
+    let newEndHours = addThirtySeconds(newStartHours);
+    if (newStartHours === "00:00") newEndHours = "08:30";
 
     const updatedWorkingDays = {
       ...courier.workingDays,
@@ -68,7 +69,6 @@ export default function WorkingDaysInput({
         },
       ],
     };
-
     handleWorkingDaysUpdate({ ...courier, workingDays: updatedWorkingDays });
   };
 
@@ -91,7 +91,11 @@ export default function WorkingDaysInput({
         />
       </div>
       {!checkMinimumWorkingDays(courier.workingDays) && (
-        <p className="text-[#fb1010]">Please Add Atleast 5 working Days</p>
+        <div className="relative">
+          <p className="absolute top-8  text-[#fb1010]">
+            Please Add Atleast 5 working Days
+          </p>
+        </div>
       )}
     </div>
   );

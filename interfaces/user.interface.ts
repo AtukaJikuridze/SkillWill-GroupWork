@@ -14,6 +14,11 @@ interface IAllUsers {
   role: "admin" | "user" | "courier";
 }
 
+export interface IAdress {
+  lng: string;
+  lat: string;
+}
+
 export interface IUserTypes {
   email: string;
   password: string;
