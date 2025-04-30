@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ToastContainer } from "react-toastify";
-import Header from "@/components/Header";
-import { getUser } from "@/services/admin";
-import { cookies } from "next/headers";
+import { Suspense } from "react";
+import ServerHeader from "@/components/ServerHeader";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,10 +14,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookieStore = await cookies();
-  const uuid = cookieStore.get("uuid")?.value;
-  const user = await getUser(uuid as string);
-
   return (
     <html lang="en">
       <body>
@@ -33,7 +28,10 @@ export default async function RootLayout({
           draggable
           pauseOnHover
         />
-        <Header user={user || {}} />
+        <Suspense fallback={<div>Loading header...</div>}>
+          <ServerHeader />
+        </Suspense>
+
         {children}
       </body>
     </html>
