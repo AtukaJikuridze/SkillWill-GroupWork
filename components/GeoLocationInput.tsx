@@ -1,4 +1,6 @@
 "use client";
+import useApp from "@/store/useApp";
+import useAuth from "@/store/useAuth";
 import { useState } from "react";
 
 type GeoLocationInputProps = {
@@ -6,66 +8,28 @@ type GeoLocationInputProps = {
 };
 
 const GeoLocationInput = ({ onGeoLocationChange }: GeoLocationInputProps) => {
-  const [coordinates, setCoordinates] = useState("");
+  // const [coordinates, setCoordinates] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const setModal = useApp((state) => state.setModal);
+  const coordinates = useAuth((state) => state.coordinates);
+  const coordinatesValue =
+    coordinates.lat && coordinates.lng
+      ? `${coordinates.lat}, ${coordinates.lng} `
+      : "";
 
   const handleGetCoordinates = () => {
-    setLoading(true);
-    setError(null);
-
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        async (position) => {
-          const latitude = position.coords.latitude;
-          const longitude = position.coords.longitude;
-          const geoLocationString = `${latitude}, ${longitude}`;
-
-          setCoordinates(geoLocationString);
-          onGeoLocationChange(geoLocationString);
-          try {
-            const response = await fetch(
-              `  https://api.maptiler.com/geocoding/reverse.json?lat=${latitude}&lon=${longitude}&key=l9gXBSMsOfVFUnvd7Hh6`
-            );
-
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
-            const data = await response.json();
-
-            if (data.features?.length > 0) {
-              setCoordinates(`Coordinates: ${geoLocationString}`);
-            } else {
-              setCoordinates(`Coordinates: ${geoLocationString}`);
-            }
-          } catch (error) {
-            console.error("Error fetching address:", error);
-            setError("Error fetching address. Try again later.");
-          } finally {
-            setLoading(false);
-          }
-        },
-        (error) => {
-          console.error("Geolocation error:", error);
-          setError("Error getting location. Please allow location access.");
-          setLoading(false);
-        }
-      );
-    } else {
-      setError("Geolocation is not supported in this browser.");
-      setLoading(false);
-    }
+    setModal("map");
   };
 
   return (
     <div>
-      <div className="mb-4">
+      <div className="my-4">
         <input
           type="text"
           placeholder="Coordinates"
-          value={coordinates}
-          onChange={(e) => setCoordinates(e.target.value)}
+          value={coordinatesValue}
+          readOnly
           className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-200"
           disabled={loading}
         />
@@ -83,4 +47,5 @@ const GeoLocationInput = ({ onGeoLocationChange }: GeoLocationInputProps) => {
     </div>
   );
 };
+
 export default GeoLocationInput;

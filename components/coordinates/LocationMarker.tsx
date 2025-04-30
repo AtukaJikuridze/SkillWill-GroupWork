@@ -25,11 +25,14 @@ const LocationMarker: React.FC<LocationMarkerProps> = ({
 }) => {
   useMapEvents({
     click(e: L.LeafletMouseEvent) {
+      const target = e.originalEvent.target as HTMLElement;
+      if (target.closest("button")) return;
       const newPosition: Coordinates = {
         lat: e.latlng.lat.toString(),
         lng: e.latlng.lng.toString(),
       };
-      setCoordinates(newPosition)
+
+      setCoordinates(newPosition);
       setPosition(newPosition);
     },
   });

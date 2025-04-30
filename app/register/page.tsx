@@ -1,8 +1,10 @@
 "use client";
+
 import BaseForm, { Field } from "@/components/form/BaseForm";
 import GeoLocationInput from "@/components/GeoLocationInput";
 import { IAdress, IRandomUser } from "@/interfaces/user.interface";
 import { registerUser } from "@/services/auth";
+import useApp from "@/store/useApp";
 import { useRouter } from "next/navigation";
 import React, { ChangeEvent, useState } from "react";
 
@@ -26,23 +28,26 @@ const RegisterPage = () => {
       required: false,
     },
   ];
+
   const router = useRouter();
   const [role, setRole] = useState<"admin" | "courier" | "user">("user");
-  const [address, setAdress] = useState<IAdress>({ lng: "", lat: "" });
+  const { setModal } = useApp();
+  const [address, setAddress] = useState<IAdress>({ lat: "", lng: "" });
 
-  if (role === "courier")
+  if (role === "courier") {
     fields = [
       { name: "vehicle", label: "Vehicle", type: "text", required: true },
       ...fields,
     ];
+  }
 
-  const handleRoleChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setRole(event.target.value as "admin" | "courier" | "user");
+  const handleRoleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setRole(e.target.value as "admin" | "courier" | "user");
   };
 
   const handleGeoLocationChange = (location: string) => {
     const [lat, lng] = location.split(", ");
-    setAdress({
+    setAddress({
       lat: lat.trim(),
       lng: lng.trim(),
     });
@@ -51,7 +56,7 @@ const RegisterPage = () => {
   const handleFormSubmit = async (
     formData: Record<string, string | number | File>
   ) => {
-    const completeFormData: { [key: string]: unknown } = {
+    const completeFormData: Record<string, unknown> = {
       ...formData,
       pid: Number(formData.pid),
       role,
@@ -61,6 +66,7 @@ const RegisterPage = () => {
       completeFormData.coordinates = address;
       completeFormData.requestedCouriers = [];
     }
+
     if (role === "courier") {
       completeFormData.totalRequests = [];
       completeFormData.workingDays = {
@@ -79,8 +85,10 @@ const RegisterPage = () => {
       const user = await registerUser(
         completeFormData as unknown as IRandomUser
       );
-      if (user === null) console.log("Error submitting form");
-      else {
+
+      if (!user) {
+        console.log("Error submitting form");
+      } else {
         document.cookie = `uuid=${user._uuid}; path=/`;
         router.push(`/${user.role}`);
       }
@@ -97,7 +105,7 @@ const RegisterPage = () => {
       <select
         id="role"
         value={role}
-        onChange={(e) => handleRoleChange(e)}
+        onChange={handleRoleChange}
         className="w-full p-2 border border-gray-300 rounded"
       >
         <option value="user">User</option>
@@ -112,7 +120,12 @@ const RegisterPage = () => {
       <BaseForm
         fields={fields}
         onSubmit={handleFormSubmit}
-        defaultValues={{ name: "", email: "", password: "", profileImage: "" }}
+        defaultValues={{
+          name: "",
+          email: "",
+          password: "",
+          profileImage: "",
+        }}
         className="max-w-lg"
       />
     </div>

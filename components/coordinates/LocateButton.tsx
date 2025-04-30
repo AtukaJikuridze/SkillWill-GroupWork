@@ -1,20 +1,25 @@
-"use client"
+"use client";
 import { Coordinates } from "@/interfaces/coordinates.interface";
 import useApp from "@/store/useApp";
 import React, { MouseEventHandler } from "react";
 import { useMap } from "react-leaflet";
+
 interface LocateButtonProps {
   onLocate: (coords: Coordinates) => void;
 }
+
 const LocateButton: React.FC<LocateButtonProps> = ({ onLocate }) => {
   const { setModal } = useApp();
 
+  // Close modal handler
   const saveChanges: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.stopPropagation();
     setModal(null);
   };
+
   const map = useMap();
 
+  // Handle geolocation button click
   const handleClick = () => {
     if (!navigator.geolocation) {
       alert("Geolocation is not supported by your browser.");
