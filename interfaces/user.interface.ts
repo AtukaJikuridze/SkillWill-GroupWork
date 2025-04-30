@@ -14,6 +14,11 @@ interface IAllUsers {
   role: "admin" | "user" | "courier";
 }
 
+export interface IAdress {
+  lng: string;
+  lat: string;
+}
+
 export interface IUserTypes {
   email: string;
   password: string;
@@ -67,3 +72,6 @@ export interface ICourier extends IBaseCourier, IResponse {}
 // Admin
 export interface IBaseAdmin extends IAllUsers {}
 export interface IAdmin extends IBaseAdmin, IResponse {}
+
+// All
+export type IRandomUser = IUser | ICourier | IAdmin;

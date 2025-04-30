@@ -125,12 +125,14 @@ export default function WeekdaySchedule({
                 onClick={() => addWorkingDay(day as IWeekDays)}
                 className="cursor-pointer border border-gray-400 text-gray-800 px-4 py-2 rounded hover:bg-gray-100 transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent"
                 disabled={
-                  parseInt(
-                    workingDays[day][
-                      workingDays[day].length - 1
-                    ].endHours.replace(":", ""),
-                    10
-                  ) >= 2300
+                  !workingDays[day][workingDays[day].length - 1]?.endHours
+                    ? false
+                    : parseInt(
+                        workingDays[day][
+                          workingDays[day].length - 1
+                        ].endHours.replace(":", ""),
+                        10
+                      ) >= 2300
                 }
               >
                 Add Working Hour

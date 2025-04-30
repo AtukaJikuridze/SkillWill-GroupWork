@@ -1,4 +1,4 @@
-import { IBaseCourier } from "@/interfaces/courier.interface";
+import { IBaseCourier } from "@/interfaces/user.interface";
 
 const DUMMYCOURIERS: IBaseCourier[] = [
   {
@@ -8,7 +8,6 @@ const DUMMYCOURIERS: IBaseCourier[] = [
     phoneNumber: "+1234567890",
     email: "alice@example.com",
     password: "hashed_pw_1",
-    profileImage: "https://example.com/alice.jpg",
     role: "courier",
     vehicle: "bicycle",
     workingDays: {
@@ -29,7 +28,6 @@ const DUMMYCOURIERS: IBaseCourier[] = [
     phoneNumber: "+1987654321",
     email: "bob@example.com",
     password: "hashed_pw_2",
-    profileImage: "https://example.com/bob.jpg",
     role: "courier",
     vehicle: "motorcycle",
     workingDays: {
@@ -50,7 +48,6 @@ const DUMMYCOURIERS: IBaseCourier[] = [
     phoneNumber: "+1122334455",
     email: "charlie@example.com",
     password: "hashed_pw_3",
-    profileImage: "https://example.com/charlie.jpg",
     role: "courier",
     vehicle: "van",
     workingDays: {

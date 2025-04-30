@@ -77,7 +77,7 @@ export default function CourierForm({ courier }: IForm) {
         courierData as unknown as Record<string, string | number | File>
       }
       canSubmit={!checkMinimumWorkingDays(courierData.workingDays)}
-      courier={courier}
+      courier={courierData}
       handleWorkingDaysUpdate={handleWorkingDaysUpdate}
       className="py-4 px-0 ml-0"
     />
