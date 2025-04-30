@@ -5,7 +5,7 @@ import useAuth from "@/store/useAuth";
 
 const Navbar = () => {
   const { user } = useAuth();
-  if (!user.role) return;
+  // if (!user.role) return;
 
   return (
     <nav className="bg-white shadow-md p-4 flex justify-between items-center">
