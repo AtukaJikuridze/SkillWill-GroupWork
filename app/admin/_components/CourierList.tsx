@@ -1,10 +1,12 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ICourier } from "@/interfaces/user.interface";
 import { objectIsEmpty } from "@/utils/objectIsEmpty";
 import { useRouter, useSearchParams } from "next/navigation";
 import { deleteRandomUser } from "@/services/admin";
 import CourierAdminEdit from "./CourierAdminEdit";
+import Modal from "./Modal";
+import TaskForm from "./TaskForm";
 
 interface ICouriersList {
   couriers: ICourier[];
@@ -14,6 +16,23 @@ const CourierList = ({ couriers }: ICouriersList) => {
   const editting = searchParams.get("edit");
   const [courierToEdit, setCourierToEdit] = useState<ICourier>({} as ICourier);
   const router = useRouter();
+
+  const [courier, setCourier] = useState<null | ICourier>(null);
+  const [openModal, setOpenModal] = useState(false);
+  const openModalButtonRef = useRef<HTMLButtonElement | null>(null);
+
+  const handleCloseModal = () => {
+    setCourier(null);
+    setOpenModal(false);
+    if (openModalButtonRef.current) {
+      openModalButtonRef.current.focus();
+    }
+  };
+
+  const handleOpenModal = (courier: ICourier) => {
+    setCourier(courier);
+    setOpenModal(true);
+  };
 
   useEffect(() => {
     if (editting && objectIsEmpty(courierToEdit)) router.push("/admin");
@@ -60,14 +79,20 @@ const CourierList = ({ couriers }: ICouriersList) => {
                     <td className="p-4">{courier.vehicle}</td>
                     <td className="p-4 space-x-2">
                       <button
+                        onClick={() => handleOpenModal(courier)}
+                        className="cursor-pointer px-3 py-1 border border-purple-500 text-purple-500 rounded hover:bg-purple-50"
+                      >
+                        Task
+                      </button>
+                      <button
                         onClick={() => handleEdit(courier)}
-                        className="px-3 py-1 border border-purple-500 text-purple-500 rounded hover:bg-purple-50"
+                        className="cursor-pointer px-3 py-1 border border-purple-500 text-purple-500 rounded hover:bg-purple-50"
                       >
                         Edit
                       </button>
                       <button
                         onClick={() => deleteRandomUser(courier._uuid)}
-                        className="px-3 py-1 border border-red-500 text-red-500 rounded hover:bg-red-50"
+                        className="cursor-pointer px-3 py-1 border border-red-500 text-red-500 rounded hover:bg-red-50"
                       >
                         Delete
                       </button>
@@ -77,6 +102,9 @@ const CourierList = ({ couriers }: ICouriersList) => {
               </tbody>
             </table>
           </div>
+          <Modal isOpen={openModal} onClose={handleCloseModal}>
+            <TaskForm onTaskSubmit={handleCloseModal} courier={courier!} />
+          </Modal>
         </div>
       )}
     </>

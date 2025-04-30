@@ -1,5 +1,4 @@
 "use client";
-
 import BaseForm, { Field } from "@/components/form/BaseForm";
 import GeoLocationInput from "@/components/GeoLocationInput";
 import { IAdress, IRandomUser } from "@/interfaces/user.interface";
@@ -78,6 +77,7 @@ const RegisterPage = () => {
         saturday: [],
         sunday: [],
       };
+      completeFormData.tasks = [];
     }
 
     try {

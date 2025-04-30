@@ -62,10 +62,18 @@ export interface IWorkingDays {
   [key: string]: IWorkingDay[];
 }
 
+export interface ITask {
+  name: string;
+  description: string;
+  time: string;
+  priority: "Low" | "Mid" | "High";
+}
+
 export interface IBaseCourier extends IAllUsers {
   vehicle: string;
   workingDays: IWorkingDays;
   totalRequests: string[];
+  tasks: ITask[];
 }
 export interface ICourier extends IBaseCourier, IResponse {}
 
