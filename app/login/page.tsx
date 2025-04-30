@@ -61,7 +61,7 @@ const LoginPage = () => {
 
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+          className="cursor-pointer w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
         >
           Login
         </button>
@@ -69,7 +69,7 @@ const LoginPage = () => {
         <button
           type="button"
           onClick={handleRegisterRedirect}
-          className="w-full mt-3 text-blue-600 hover:underline"
+          className="cursor-pointer w-full mt-3 text-blue-600 hover:underline"
         >
           Don't have an account? Register
         </button>

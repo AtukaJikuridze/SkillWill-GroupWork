@@ -38,7 +38,7 @@ const GeoLocationInput = ({ onGeoLocationChange }: GeoLocationInputProps) => {
       <button
         onClick={handleGetCoordinates}
         disabled={loading}
-        className="w-full py-2 px-4 bg-blue-500 text-white rounded-lg disabled:bg-gray-400"
+        className="cursor-pointer w-full py-2 px-4 bg-blue-500 text-white rounded-lg disabled:bg-gray-400"
       >
         {loading ? "Loading..." : "Get Coordinates"}
       </button>
