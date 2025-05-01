@@ -1,4 +1,5 @@
-import { IWorkingDay, IWorkingDays } from "@/interfaces/courier.interface";
+import { IWorkingDay, IWorkingDays } from "@/interfaces/user.interface";
+
 
 const weekDaysOrder: string[] = [
   "monday",
