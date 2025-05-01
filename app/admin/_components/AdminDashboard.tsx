@@ -1,11 +1,13 @@
-import { IUser } from "@/interfaces/user.interface";
+import { IAdmin } from "@/interfaces/user.interface";
+import Image from "next/image";
+import React from "react";
 import EditBtn from "./EditBtn";
 import DeleteBtn from "./DeleteBtn";
-import Image from "next/image";
 
-interface IUserView {
-  user: IUser;
+interface IAdminDashboard {
+  admin: IAdmin;
 }
+
 interface IInfoDisplay {
   label: string;
   value: string | number;
@@ -20,7 +22,7 @@ const InfoDisplay = ({ label, value }: IInfoDisplay) => {
   );
 };
 
-const UserView = ({ user }: IUserView) => {
+export default function AdminDashboard({ admin }: IAdminDashboard) {
   return (
     <div className="relative flex flex-col gap-8 mx-auto mb-8 p-4 sm:p-8 border border-black rounded">
       <div className="flex flex-col w-full">
@@ -30,14 +32,14 @@ const UserView = ({ user }: IUserView) => {
           </h2>
           <div className="absolute right-4 flex gap-4">
             <EditBtn />
-            <DeleteBtn uuid={user._uuid} />
+            <DeleteBtn uuid={admin._uuid} />
           </div>
         </div>
 
         <div className="flex justify-center mb-4">
           <Image
-            alt={`${user.firstName} ${user.lastName}`}
-            src={user.profileImage || "/images/avatar.png"}
+            alt={`${admin.firstName} ${admin.lastName}`}
+            src={admin.profileImage || "/images/avatar.png"}
             width={64}
             height={64}
             className="rounded-full object-cover"
@@ -47,21 +49,15 @@ const UserView = ({ user }: IUserView) => {
         </div>
 
         <div className="flex flex-col gap-4">
-          <InfoDisplay label="Email" value={user.email} />
+          <InfoDisplay label="Email" value={admin.email} />
           <InfoDisplay
             label="Full Name"
-            value={`${user.firstName} ${user.lastName}`}
+            value={`${admin.firstName} ${admin.lastName}`}
           />
-          <InfoDisplay label="Phone Number" value={user.phoneNumber} />
-          <InfoDisplay label="PID" value={user.pid} />
-          <InfoDisplay
-            label="Address"
-            value={`${user.coordinates.lng} : ${user.coordinates.lat}`}
-          />
+          <InfoDisplay label="Phone Number" value={admin.phoneNumber} />
+          <InfoDisplay label="PID" value={admin.pid} />
         </div>
       </div>
     </div>
   );
-};
-
-export default UserView;
+}

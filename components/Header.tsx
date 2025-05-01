@@ -38,6 +38,7 @@ export default function Header({ user }: IHeader) {
                 width={40}
                 height={40}
                 className="rounded-full object-cover"
+                style={{ width: "40px", height: "40px" }}
               />
               <LogoutBtn />
             </>

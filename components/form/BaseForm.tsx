@@ -82,10 +82,13 @@ export default function BaseForm({
     const loadingToastId = loadingNotification();
 
     try {
-      let profileImage = "";
-      const file = formData.profileImage as File;
+      let file: string | File = "";
+      const finalData = { ...formData };
 
-      if (file) {
+      if (typeof formData.profileImage !== "string")
+        file = formData.profileImage as unknown as File;
+
+      if (typeof file !== "string") {
         const filePath = `public/${Date.now()}-${file.name}`;
 
         const { uploadData, uploadError } = await uploadImg(filePath, file);
@@ -93,10 +96,8 @@ export default function BaseForm({
         if (uploadError) throw uploadError;
 
         const { publicUrl } = getImg(filePath);
-        profileImage = publicUrl;
+        finalData.profileImage = publicUrl;
       }
-
-      const finalData = { ...formData, profileImage };
       onSubmit(finalData);
       setFormData({});
       setErrors({});

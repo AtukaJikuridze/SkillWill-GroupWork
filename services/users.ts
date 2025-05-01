@@ -15,21 +15,14 @@ export const addUser = async (formData: IUserTypes) => {
   return data;
 };
 
-export const getUsers = async (
-  page: number = 1,
-  limit: number = 2
-): Promise<IUser[]> => {
+export const getUsers = async (): Promise<IUser[]> => {
   "use cache";
   cacheTag("users");
-
-  const from = (page - 1) * limit;
-  const to = from + limit - 1;
 
   const { data, error } = await supabase
     .from("users")
     .select("*")
-    .eq("role", "user")
-    .range(from, to);
+    .eq("role", "user");
 
   if (error) {
     console.error("Error fetching users:", error.message);

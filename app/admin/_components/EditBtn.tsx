@@ -7,7 +7,7 @@ export default function EditBtn() {
 
   return (
     <button
-      onClick={() => router.push("/user?edit=true")}
+      onClick={() => router.push("/admin/edit")}
       className="cursor-pointer px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
     >
       Edit

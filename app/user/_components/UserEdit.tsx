@@ -1,7 +1,5 @@
 "use client";
-import GeoLocationInput from "@/components/GeoLocationInput";
-import { IAdress, IUser } from "@/interfaces/user.interface";
-import { useState } from "react";
+import { IUser } from "@/interfaces/user.interface";
 import UserForm from "./UserForm";
 import { useRouter } from "next/navigation";
 
@@ -12,23 +10,13 @@ interface IUserEdit {
 
 const UserEdit = ({ user, onSubmit }: IUserEdit) => {
   const router = useRouter();
-  const [address, setAdress] = useState<IAdress>({ lng: "", lat: "" });
 
   const handleFormSubmit = (
     updatedData: Record<string, string | number | File>
   ) => {
     const updatedUser = { ...user, ...updatedData };
-    if (address.lng) updatedUser.coordinates = address;
     onSubmit(updatedUser);
     router.push("user");
-  };
-
-  const handleGeoLocationChange = (location: string) => {
-    const [lat, lng] = location.split(", ");
-    setAdress({
-      lat: lat.trim(),
-      lng: lng.trim(),
-    });
   };
 
   return (
