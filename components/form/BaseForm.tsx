@@ -6,6 +6,7 @@ import SelectInput from "./SelectInput";
 import WorkingDaysInput from "./WorkingDaysInput";
 import { loadingNotification, onResponseReturned } from "@/utils/notifications";
 import { ICourier } from "@/interfaces/user.interface";
+import { uploadImg, getImg, deleteImg } from "@/services/image";
 
 export interface Field {
   name: string;
@@ -81,7 +82,21 @@ export default function BaseForm({
     const loadingToastId = loadingNotification();
 
     try {
-      const finalData = { ...formData };
+      let profileImage = "";
+      const file = formData.profileImage as File;
+
+      if (file) {
+        const filePath = `public/${Date.now()}-${file.name}`;
+
+        const { uploadData, uploadError } = await uploadImg(filePath, file);
+
+        if (uploadError) throw uploadError;
+
+        const { publicUrl } = getImg(filePath);
+        profileImage = publicUrl;
+      }
+
+      const finalData = { ...formData, profileImage };
       onSubmit(finalData);
       setFormData({});
       setErrors({});

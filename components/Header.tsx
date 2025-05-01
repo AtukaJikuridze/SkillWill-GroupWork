@@ -32,7 +32,7 @@ export default function Header({ user }: IHeader) {
           ) : (
             <>
               <img
-                src={user.profileImage || "/default-avatar.png"}
+                src={user.profileImage || "/images/avatar.png"}
                 alt={`${user.firstName} ${user.lastName}`}
                 className="w-10 h-10 rounded-full object-cover"
               />
