@@ -84,11 +84,10 @@ export default function BaseForm({
     try {
       let file: string | File = "";
       const finalData = { ...formData };
-
       if (typeof formData.profileImage !== "string")
         file = formData.profileImage as unknown as File;
 
-      if (typeof file !== "string") {
+      if (typeof file !== "string" && formData.profileImage !== undefined) {
         const filePath = `public/${Date.now()}-${file.name}`;
 
         const { uploadData, uploadError } = await uploadImg(filePath, file);

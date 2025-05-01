@@ -66,6 +66,7 @@ export default function PageSelector({ couriers, user }: IPageSelector) {
                         width={40}
                         height={40}
                         className="rounded-full object-cover"
+                        style={{ width: "40px", height: "40px" }}
                       />
                     </td>
                     <td className="p-4">{courier.firstName}</td>

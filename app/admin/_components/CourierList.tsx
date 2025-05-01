@@ -3,11 +3,11 @@ import { useEffect, useRef, useState } from "react";
 import { ICourier } from "@/interfaces/user.interface";
 import { objectIsEmpty } from "@/utils/objectIsEmpty";
 import { useRouter, useSearchParams } from "next/navigation";
-import { deleteRandomUser } from "@/services/admin";
 import CourierAdminEdit from "./CourierAdminEdit";
 import Modal from "./Modal";
 import TaskForm from "./TaskForm";
 import Image from "next/image";
+import { deleteCourier } from "@/services/courier";
 
 interface ICouriersList {
   couriers: ICourier[];
@@ -74,6 +74,7 @@ const CourierList = ({ couriers }: ICouriersList) => {
                         width={40}
                         height={40}
                         className="rounded-full object-cover"
+                        style={{ width: "40px", height: "40px" }}
                       />
                     </td>
                     <td className="p-4">{courier.firstName}</td>
@@ -94,7 +95,7 @@ const CourierList = ({ couriers }: ICouriersList) => {
                         Edit
                       </button>
                       <button
-                        onClick={() => deleteRandomUser(courier._uuid)}
+                        onClick={() => deleteCourier(courier._uuid)}
                         className="cursor-pointer px-3 py-1 border border-red-500 text-red-500 rounded hover:bg-red-50"
                       >
                         Delete

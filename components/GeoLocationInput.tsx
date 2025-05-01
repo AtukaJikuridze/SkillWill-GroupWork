@@ -1,7 +1,7 @@
 "use client";
 import useApp from "@/store/useApp";
 import useAuth from "@/store/useAuth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type GeoLocationInputProps = {
   onGeoLocationChange: (location: string) => void;
@@ -21,6 +21,10 @@ const GeoLocationInput = ({ onGeoLocationChange }: GeoLocationInputProps) => {
   const handleGetCoordinates = () => {
     setModal("map");
   };
+
+  useEffect(() => {
+    if (coordinatesValue !== "") onGeoLocationChange(coordinatesValue);
+  }, [coordinatesValue]);
 
   return (
     <div>

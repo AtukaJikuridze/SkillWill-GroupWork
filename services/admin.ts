@@ -46,6 +46,8 @@ export const updateRandomUser = async (user: IRandomUser) => {
     return [];
   }
 
+  revalidateTag("user");
+  revalidateTag("user-by-id");
   revalidateTag("random-users");
   revalidateTag("random-user-by-id");
 

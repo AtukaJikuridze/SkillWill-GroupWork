@@ -27,7 +27,7 @@ const LoginPage = () => {
     <Suspense>
       <form
         onSubmit={handleLogin}
-        className="max-w-md mx-auto p-4 bg-white rounded shadow"
+        className="mt-12 max-w-md mx-auto p-4 bg-white rounded shadow"
       >
         <div className="mb-4">
           <label htmlFor="email" className="block mb-1 font-medium">

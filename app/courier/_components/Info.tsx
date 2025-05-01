@@ -29,6 +29,7 @@ export default function Info({ courier }: { courier: ICourier }) {
         width={40}
         height={40}
         className="rounded-full object-cover"
+        style={{ width: "40px", height: "40px" }}
       />
       <div className="flex content-center mb-2"></div>
 
