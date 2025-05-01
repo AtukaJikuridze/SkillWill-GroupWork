@@ -33,6 +33,8 @@ const CourierAdminEdit = ({ courier }: ICourierAdminEdit) => {
     setCourierData({ ...courierData, workingDays: updatedWorkingDays });
   };
 
+  const onCancel = () => router.push("/admin");
+
   const addWorkingDay = (day: IWeekDays) => {
     const lastWorkingDay =
       courierData.workingDays[day]?.length > 0
@@ -93,7 +95,7 @@ const CourierAdminEdit = ({ courier }: ICourierAdminEdit) => {
   };
   return (
     <div className="max-w-7xl mx-auto p-6">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-1 gap-6">
         <div>
           <h6 className="text-lg font-semibold mb-2">
             Edit Working Days for {courier.firstName} {courier.lastName}
@@ -109,9 +111,16 @@ const CourierAdminEdit = ({ courier }: ICourierAdminEdit) => {
 
       <div className="flex justify-end mt-4">
         <button
+          onClick={onCancel}
+          disabled={loading}
+          className="cursor-pointer px-6 py-2 mr-4 bg-red-500 text-white rounded-md hover:bg-red-600 disabled:opacity-50"
+        >
+          Cancel
+        </button>
+        <button
           onClick={handleSubmit}
           disabled={loading}
-          className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
+          className="cursor-pointer px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
         >
           {loading ? "Saving..." : "Save Changes"}
         </button>

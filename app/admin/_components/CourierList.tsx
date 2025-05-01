@@ -7,6 +7,7 @@ import { deleteRandomUser } from "@/services/admin";
 import CourierAdminEdit from "./CourierAdminEdit";
 import Modal from "./Modal";
 import TaskForm from "./TaskForm";
+import Image from "next/image";
 
 interface ICouriersList {
   couriers: ICourier[];
@@ -67,10 +68,12 @@ const CourierList = ({ couriers }: ICouriersList) => {
                 {couriers.map((courier) => (
                   <tr key={courier._uuid} className="border-t">
                     <td className="p-4">
-                      <img
-                        src={courier.profileImage || undefined}
+                      <Image
+                        src={courier.profileImage || "/images/avatar.png"}
                         alt={`${courier.firstName} ${courier.lastName}`}
-                        className="w-10 h-10 rounded-full object-cover"
+                        width={40}
+                        height={40}
+                        className="rounded-full object-cover"
                       />
                     </td>
                     <td className="p-4">{courier.firstName}</td>

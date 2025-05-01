@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Avatar from "./Avatar";
 import { ICourier } from "@/interfaces/user.interface";
+import Image from "next/image";
 
 interface IInfoDisplay {
   label: string;
@@ -23,10 +23,14 @@ export default function Info({ courier }: { courier: ICourier }) {
         <h5 className="mx-auto mt-4 mb-0">Courier Details</h5>
         <Link href="/courier/edit">Edit</Link>
       </div>
-
-      <div className="flex content-center mb-2">
-        <Avatar name={courier.firstName} imageUrl={courier.profileImage} />
-      </div>
+      <Image
+        src={courier.profileImage || "/images/avatar.png"}
+        alt={`${courier.firstName} ${courier.lastName}`}
+        width={40}
+        height={40}
+        className="rounded-full object-cover"
+      />
+      <div className="flex content-center mb-2"></div>
 
       <div className="flex flex-col gap-4">
         <InfoDisplay label="Email" value={courier.email} />

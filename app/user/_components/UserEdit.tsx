@@ -36,8 +36,6 @@ const UserEdit = ({ user, onSubmit }: IUserEdit) => {
       <div className="flex flex-col items-center space-y-6">
         <div className="w-full sm:w-1/2">
           <h2 className="text-lg font-semibold mb-4">Edit User Information</h2>
-          <GeoLocationInput onGeoLocationChange={handleGeoLocationChange} />
-
           <UserForm
             formData={user as unknown as Record<string, string | number | File>}
             handleFormSubmit={handleFormSubmit}

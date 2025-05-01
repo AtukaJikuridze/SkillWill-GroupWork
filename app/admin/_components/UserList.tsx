@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { ICourier, IUser } from "@/interfaces/user.interface";
 import Modal from "./Modal";
 import BookedCouriers from "./BookedCouriers";
+import Image from "next/image";
 
 interface IUserList {
   users: IUser[];
@@ -47,11 +48,15 @@ const UserList = ({ users, couriers }: IUserList) => {
             {users.map((user) => (
               <tr key={user._uuid} className="border-t">
                 <td className="p-4">
-                  <img
-                    src={user.profileImage || undefined}
-                    alt={`${user.firstName} ${user.lastName}`}
-                    className="w-10 h-10 rounded-full object-cover"
-                  />
+                  <div className="relative w-10 h-10">
+                    <Image
+                      src={user.profileImage || "/images/avatar.png"}
+                      alt={`${user.firstName} ${user.lastName}`}
+                      fill
+                      sizes="40px"
+                      className="rounded-full object-cover"
+                    />
+                  </div>
                 </td>
                 <td className="p-4">{user.firstName}</td>
                 <td className="p-4">{user.lastName}</td>

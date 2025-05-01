@@ -1,16 +1,10 @@
-import { getRandomUsers } from "@/services/admin";
-import { ICourier, IUser } from "@/interfaces/user.interface";
 import ClientSelector from "./_components/ClientSelector";
+import { getUsers } from "@/services/users";
+import { getCouriers } from "@/services/courier";
 
 const AdminPage = async () => {
-  const randomUsers = await getRandomUsers();
-
-  const users = randomUsers.filter(
-    (allUsers) => allUsers.role === "user"
-  ) as IUser[];
-  const couriers = randomUsers.filter(
-    (allUsers) => allUsers.role === "courier"
-  ) as ICourier[];
+  const users = await getUsers();
+  const couriers = await getCouriers();
 
   return <ClientSelector users={users} couriers={couriers} />;
 };

@@ -1,6 +1,7 @@
 import { IRandomUser } from "@/interfaces/user.interface";
 import Link from "next/link";
 import LogoutBtn from "./LogoutBtn";
+import Image from "next/image";
 
 interface IHeader {
   user: IRandomUser;
@@ -31,10 +32,12 @@ export default function Header({ user }: IHeader) {
             </>
           ) : (
             <>
-              <img
+              <Image
                 src={user.profileImage || "/images/avatar.png"}
                 alt={`${user.firstName} ${user.lastName}`}
-                className="w-10 h-10 rounded-full object-cover"
+                width={40}
+                height={40}
+                className="rounded-full object-cover"
               />
               <LogoutBtn />
             </>

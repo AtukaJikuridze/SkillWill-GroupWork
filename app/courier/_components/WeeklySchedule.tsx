@@ -92,7 +92,7 @@ export default function WeekdaySchedule({
             {day.charAt(0).toUpperCase() + day.slice(1)}
           </button>
           {expandedDay === day && (
-            <div className="absolute w-full p-4 bg-gray-100 z-10">
+            <div className="absolute w-full p-4 bg-gray-50 border border-gray-600 z-10">
               {workingDays[day as IWeekDays].map((workingDay, index) => (
                 <div className="flex items-center gap-4 mb-2" key={index}>
                   <TimeSelect

@@ -6,7 +6,8 @@ import UserView from "./UserView";
 import UserEdit from "./UserEdit";
 import { ICourier, IUser, IWorkingDays } from "@/interfaces/user.interface";
 import { updateCourier } from "@/services/courier";
-import { updateRandomUser } from "@/services/admin";
+import { updateUser } from "@/services/users";
+import Image from "next/image";
 
 export interface IPageSelector {
   couriers: ICourier[];
@@ -24,14 +25,14 @@ export default function PageSelector({ couriers, user }: IPageSelector) {
       totalRequests: [...courier.totalRequests, user.email],
     };
     updateCourier(updatedCourier);
-    updateRandomUser({
+    updateUser({
       ...user,
       requestedCouriers: [...user.requestedCouriers, updatedCourier],
     });
   };
 
   const onUserEdit = (user: IUser) => {
-    updateRandomUser(user);
+    updateUser(user);
   };
 
   return (
@@ -59,10 +60,12 @@ export default function PageSelector({ couriers, user }: IPageSelector) {
                 {couriers.map((courier) => (
                   <tr key={courier._uuid} className="border-t">
                     <td className="p-4">
-                      <img
-                        src={courier.profileImage || undefined}
+                      <Image
+                        src={courier.profileImage || "/images/avatar.png"}
                         alt={`${courier.firstName} ${courier.lastName}`}
-                        className="w-10 h-10 rounded-full object-cover"
+                        width={40}
+                        height={40}
+                        className="rounded-full object-cover"
                       />
                     </td>
                     <td className="p-4">{courier.firstName}</td>
